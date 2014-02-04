@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="greeting">한빛교회에 오신것을 환영합니다!</string>
+    <string name="greeting">Welcome to Hanbit Church!</string>
+    <string name="nextPageHeader">This is a second page.</string>
 </resources>
