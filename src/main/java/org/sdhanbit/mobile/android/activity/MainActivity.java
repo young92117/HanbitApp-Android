@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.google.inject.Inject;
 import org.sdhanbit.mobile.android.R;
+import org.sdhanbit.mobile.android.controller.IMainActivityController;
 import org.sdhanbit.mobile.android.controller.MainActivityController;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectResource;
@@ -16,7 +17,7 @@ import roboguice.inject.InjectView;
 public class MainActivity extends RoboActivity {
 
     @Inject
-    MainActivityController controller;
+    IMainActivityController controller;
 
     @InjectView(R.id.textGreeting)
     TextView txtGreeting;

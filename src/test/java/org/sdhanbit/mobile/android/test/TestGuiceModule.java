@@ -25,7 +25,6 @@ public class TestGuiceModule extends AbstractModule{
     @Override
     @SuppressWarnings("unchecked")
     protected void configure() {
-        //bind(Activity.class).toProvider(ActivityProvider.class).in(ContextSingleton.class);
         Set<Map.Entry<Class<?>, Object>> entries = bindings.entrySet();
         for (Map.Entry<Class<?>, Object> entry : entries) {
             bind((Class<Object>) entry.getKey()).toInstance(entry.getValue());

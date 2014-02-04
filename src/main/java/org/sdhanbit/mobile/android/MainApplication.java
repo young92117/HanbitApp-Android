@@ -8,7 +8,7 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        RoboGuice.setBaseApplicationInjector(this, RoboGuice.DEFAULT_STAGE,
-                RoboGuice.newDefaultRoboModule(this), new MainModule());
+        //RoboGuice.setBaseApplicationInjector(this, RoboGuice.DEFAULT_STAGE,
+        //        RoboGuice.newDefaultRoboModule(this), new MainModule());
     }
 }

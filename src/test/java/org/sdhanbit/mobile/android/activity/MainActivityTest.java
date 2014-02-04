@@ -6,6 +6,7 @@ import android.content.Context;
 import android.widget.Button;
 import android.widget.TextView;
 import com.google.inject.util.Modules;
+import org.sdhanbit.mobile.android.controller.IMainActivityController;
 import org.sdhanbit.mobile.android.test.TestGuiceModule;
 import org.junit.After;
 import org.junit.Before;
@@ -29,7 +30,7 @@ public class MainActivityTest {
     protected Context context = mock(RoboActivity.class, RETURNS_DEEP_STUBS);
 
     @MockitoAnnotations.Mock
-    MainActivityController controller;
+    IMainActivityController controller;
 
     Activity activity;
 
