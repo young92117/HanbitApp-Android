@@ -39,14 +39,13 @@ public class MainActivityTest {
         when(context.getApplicationContext()).thenReturn(application);
         when(application.getApplicationContext()).thenReturn(application);
 
-        activity = Robolectric.buildActivity(MainActivity.class).create().get();
-
         MockitoAnnotations.initMocks(this);
 
         TestGuiceModule module = new TestGuiceModule();
         module.addBinding(MainActivityController.class, controller);
         TestGuiceModule.setUp(this, module);
 
+        activity = Robolectric.buildActivity(MainActivity.class).create().get();
     }
 
     @After
@@ -76,7 +75,7 @@ public class MainActivityTest {
         Button btnNext = (Button) activity.findViewById(R.id.btnNext);
         btnNext.callOnClick();
 
-        // verify(controller).OnNextButtonClicked(activity);
+        verify(controller).OnNextButtonClicked(activity);
     }
 
 }
