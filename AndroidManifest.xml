@@ -5,9 +5,9 @@
           package="org.sdhanbit.mobile.android">
 
     <uses-sdk android:minSdkVersion="18"
-              android:targetSdkVersion="18"/>
+              android:targetSdkVersion="19"/>
 
-    <application android:name=".MainApplication">
+    <application android:name=".MainApplication" android:allowBackup="true">
 
         <activity android:name=".activity.MainActivity" android:screenOrientation="portrait">
             <intent-filter>

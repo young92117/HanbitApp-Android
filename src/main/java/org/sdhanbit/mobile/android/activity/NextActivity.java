@@ -11,8 +11,10 @@ import roboguice.inject.InjectView;
 public class NextActivity extends RoboActivity {
 
     @InjectView(R.id.txtHeader)
+    private
     TextView txtHeader;
     @InjectResource(R.string.nextPageHeader)
+    private
     String nextPageHeader;
 
 

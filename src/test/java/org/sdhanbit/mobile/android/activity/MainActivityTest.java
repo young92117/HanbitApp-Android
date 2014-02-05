@@ -5,8 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.widget.Button;
 import android.widget.TextView;
-import com.google.inject.util.Modules;
-import org.sdhanbit.mobile.android.controller.IMainActivityController;
+import org.mockito.Mock;
 import org.sdhanbit.mobile.android.test.TestGuiceModule;
 import org.junit.After;
 import org.junit.Before;
@@ -26,13 +25,13 @@ import static org.mockito.Mockito.*;
 @RunWith(RobolectricTestRunner.class)
 public class MainActivityTest {
 
-    protected Application application = mock(Application.class, RETURNS_DEEP_STUBS);
-    protected Context context = mock(RoboActivity.class, RETURNS_DEEP_STUBS);
+    private Application application = mock(Application.class, RETURNS_DEEP_STUBS);
+    private Context context = mock(RoboActivity.class, RETURNS_DEEP_STUBS);
 
-    @MockitoAnnotations.Mock
-    IMainActivityController controller;
+    @Mock
+    private MainActivityController controller;
 
-    Activity activity;
+    private Activity activity;
 
     @Before
     public void setup() {

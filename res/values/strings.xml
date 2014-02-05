@@ -2,4 +2,7 @@
 <resources>
     <string name="greeting">Welcome to Hanbit Church!</string>
     <string name="nextPageHeader">This is a second page.</string>
+
+    <string name="rssreader_service_started">RSS Reader Started</string>
+    <string name="rssreader_service_stopped">RSS Reader Stopped</string>
 </resources>

@@ -5,15 +5,13 @@ import android.content.Intent;
 import android.widget.Toast;
 import org.sdhanbit.mobile.android.activity.NextActivity;
 
-public class MainActivityController implements IMainActivityController {
+public class MainActivityController {
 
-    @Override
     public void OnNextButtonClicked(Context context) {
         Intent intent = new Intent(context, NextActivity.class);
         context.startActivity(intent);
     }
 
-    @Override
     public void OnOkButtonClicked(Context context) {
         Toast.makeText(context, "OK button clicked", Toast.LENGTH_LONG).show();
     }
