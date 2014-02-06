@@ -15,5 +15,8 @@
 1. Open IntelliJ
 2. On the "Welcome" screen, click "Check out from Version Control" and choose "GitHub".
 3. When prompted, enter your GitHub credentials.
-4. When prompted, enter this project's github address https://github.com/SanDiegoHanbitChurch/HanbitApp-Android.git
+4. When prompted, enter this project's github address 
+```
+https://github.com/SanDiegoHanbitChurch/HanbitApp-Android.git
+```
 5. For steps after opening the project, see [this presentation](https://docs.google.com/presentation/d/1CDrVr3W5B-jeBLmYCM-50rz_3adjcKSLj-aEXUQPvP4/pub?start=false&loop=false&delayms=3000).
