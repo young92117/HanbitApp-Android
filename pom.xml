@@ -71,6 +71,14 @@
             <version>18</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.j256.ormlite</groupId>
+            <artifactId>ormlite-android</artifactId>
+            <version>4.47</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
