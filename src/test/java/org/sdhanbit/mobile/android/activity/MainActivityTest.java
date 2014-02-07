@@ -3,9 +3,12 @@ package org.sdhanbit.mobile.android.activity;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Button;
 import android.widget.TextView;
 import org.mockito.Mock;
+import org.robolectric.shadows.ShadowActivity;
+import org.robolectric.shadows.ShadowIntent;
 import org.sdhanbit.mobile.android.test.TestGuiceModule;
 import org.junit.After;
 import org.junit.Before;
@@ -28,9 +31,6 @@ public class MainActivityTest {
     private Application application = mock(Application.class, RETURNS_DEEP_STUBS);
     private Context context = mock(RoboActivity.class, RETURNS_DEEP_STUBS);
 
-    @Mock
-    private MainActivityController controller;
-
     private Activity activity;
 
     @Before
@@ -39,10 +39,7 @@ public class MainActivityTest {
         when(context.getApplicationContext()).thenReturn(application);
         when(application.getApplicationContext()).thenReturn(application);
 
-        MockitoAnnotations.initMocks(this);
-
         TestGuiceModule module = new TestGuiceModule();
-        module.addBinding(MainActivityController.class, controller);
         TestGuiceModule.setUp(this, module);
 
         activity = Robolectric.buildActivity(MainActivity.class).create().get();
@@ -52,7 +49,6 @@ public class MainActivityTest {
     public void teardown() {
         // Don't forget to tear down our custom injector to avoid polluting other test classes
         RoboGuice.util.reset();
-
         TestGuiceModule.tearDown();
     }
 
@@ -71,11 +67,15 @@ public class MainActivityTest {
     }
 
     @org.junit.Test
-    public void navigateToNextPageWhenNextButtonIsClicked() throws Exception {
+    public void navigateToNextActivityWhenNextButtonIsClicked() throws Exception {
         Button btnNext = (Button) activity.findViewById(R.id.btnNext);
         btnNext.callOnClick();
 
-        verify(controller).OnNextButtonClicked(activity);
+        ShadowActivity shadowActivity = Robolectric.shadowOf(activity);
+        Intent startedIntent = shadowActivity.getNextStartedActivity();
+        ShadowIntent shadowIntent = Robolectric.shadowOf(startedIntent);
+
+        assertEquals(shadowIntent.getIntentClass(), NextActivity.class);
     }
 
 }

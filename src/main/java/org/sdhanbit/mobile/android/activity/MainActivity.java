@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.google.inject.Inject;
 import org.sdhanbit.mobile.android.R;
 import org.sdhanbit.mobile.android.controller.MainActivityController;
+import org.sdhanbit.mobile.android.rss.RssReaderScheduler;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
@@ -15,8 +16,9 @@ import roboguice.inject.InjectView;
 public class MainActivity extends RoboActivity {
 
     @Inject
-    private
-    MainActivityController controller;
+    private MainActivityController controller;
+    @Inject
+    private RssReaderScheduler mRssReaderScheduler;
 
     @InjectView(R.id.textGreeting)
     private TextView txtGreeting;
@@ -50,5 +52,13 @@ public class MainActivity extends RoboActivity {
                 controller.OnOkButtonClicked(view.getContext());
             }
         });
+
+        mRssReaderScheduler.setAlarm(this);
+    }
+
+    @Override
+    protected void onStop() {
+        mRssReaderScheduler.cancelAlarm(this);
+        super.onStop();
     }
 }
