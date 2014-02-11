@@ -37,7 +37,7 @@ public class TestGuiceModule extends AbstractModule{
 
     public static void setUp(Object testObject, TestGuiceModule module) {
         Module roboGuiceModule = RoboGuice.newDefaultRoboModule(Robolectric.application);
-        Module productionModule = Modules.override(roboGuiceModule).with(new MainModule());
+        Module productionModule = Modules.override(roboGuiceModule).with(new MainModule(Robolectric.application));
         Module testModule = Modules.override(productionModule).with(module);
 
         RoboGuice.setBaseApplicationInjector(Robolectric.application, RoboGuice.DEFAULT_STAGE, testModule);

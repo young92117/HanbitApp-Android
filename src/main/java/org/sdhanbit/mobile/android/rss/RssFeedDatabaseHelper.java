@@ -1,13 +1,15 @@
-package org.sdhanbit.mobile.android.database;
+package org.sdhanbit.mobile.android.rss;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import com.google.inject.Inject;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import org.sdhanbit.mobile.android.MainApplication;
 import org.sdhanbit.mobile.android.R;
 import org.sdhanbit.mobile.android.entity.FeedEntry;
 
@@ -35,7 +37,8 @@ public class RssFeedDatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<FeedEntry, Integer> feedEntryDao = null;
     private RuntimeExceptionDao<FeedEntry, Integer> feedEntryRuntimeExceptionDao = null;
 
-    public RssFeedDatabaseHelper(Context context) {
+    @Inject
+    public RssFeedDatabaseHelper(MainApplication context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
     }
 

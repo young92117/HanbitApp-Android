@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Announcement">http://www.sdhanbit.org/wordpress/?feed=rss2&amp;cat=15</string>
+    <string name="PastoralColumn">http://www.sdhanbit.org/wordpress/?feed=rss2&amp;cat=14</string>
+    <string name="Sermon">http://www.youtube.com/user/sdhanbit/feed</string>
+    <string name="HanbitFeedUrl">http://www.sdhanbit.org/wordpress/?feed=rss2</string>
+</resources>
