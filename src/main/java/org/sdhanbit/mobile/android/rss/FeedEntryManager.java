@@ -101,6 +101,19 @@ public class FeedEntryManager {
         return feedEntries;
     }
 
+    public void markFeedEntryAsViewed(FeedEntry feedEntry) {
+        try {
+            Dao<FeedEntry, Integer> feedEntryIntegerDao = getDao();
+
+            feedEntry.setIsViewed(true);
+            feedEntryIntegerDao.update(feedEntry);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Log.e(TAG, "Database exception", e);
+        }
+    }
+
     private Dao<FeedEntry, Integer> getDao() throws SQLException {
         return getHelper().getDao();
     }

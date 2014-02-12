@@ -3,7 +3,7 @@ package org.sdhanbit.mobile.android;
 import android.content.Context;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
-import org.sdhanbit.mobile.android.Provider.AppProvider;
+import org.sdhanbit.mobile.android.provider.AppProvider;
 
 public class MainModule extends AbstractModule {
 

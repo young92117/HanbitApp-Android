@@ -1,6 +1,5 @@
-package org.sdhanbit.mobile.android.Provider;
+package org.sdhanbit.mobile.android.provider;
 
-import android.app.Application;
 import android.content.Context;
 import com.google.inject.Inject;
 import com.google.inject.Provider;

@@ -25,6 +25,8 @@ public class FeedEntry {
     private Date publishedDate;
     @DatabaseField
     private String category;
+    @DatabaseField
+    private Boolean isViewed;
 
     public FeedEntry() {
         // ORMLite needs a no-arg constructor
@@ -38,6 +40,7 @@ public class FeedEntry {
         this.description = description;
         this.publishedDate = publishedDate;
         this.category = category;
+        this.setIsViewed(false);
     }
 
     public String getAuthor() {
@@ -94,5 +97,13 @@ public class FeedEntry {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public Boolean getIsViewed() {
+        return isViewed;
+    }
+
+    public void setIsViewed(Boolean isViewed) {
+        this.isViewed = isViewed;
     }
 }
