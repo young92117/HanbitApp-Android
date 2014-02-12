@@ -1,6 +1,5 @@
 package org.sdhanbit.mobile.android.rss;
 
-import android.content.Context;
 import android.util.Log;
 import com.google.code.rome.android.repackaged.com.sun.syndication.feed.synd.SyndCategory;
 import com.google.code.rome.android.repackaged.com.sun.syndication.feed.synd.SyndContent;
@@ -37,7 +36,7 @@ public class FeedEntryManager {
                 if (!doesFeedEntryExist(feedEntryDao, entry)) {
                     // (String author, String title, String link, String content, String description, Date publishedDate, String category)
                     String content = getMergedContent(entry);
-                    String category = getFirstCategory(entry.getCategories());
+                    String category = getCategories(entry.getCategories());
 
                     FeedEntry feedEntry = new FeedEntry(entry.getAuthor(), entry.getTitle(), entry.getLink(),
                             content, entry.getDescription().getValue(), entry.getPublishedDate(), category);
@@ -53,33 +52,35 @@ public class FeedEntryManager {
 
     }
 
-    private String getFirstCategory(List categories) {
-        String category = null;
+    /*
+    Returns comma-delimited categories.
+     */
+    private String getCategories(List categories) {
+        StringBuilder builder = new StringBuilder();
 
         if (categories != null) {
-            Iterator<?> it = categories.iterator();
-            SyndCategory syndCategory = (SyndCategory) it.next();
-
-            if (syndCategory != null) {
-                category = syndCategory.getName();
+            for (Iterator<SyndCategory> iterator = categories.iterator(); iterator.hasNext();) {
+                SyndCategory syndCategory = iterator.next();
+                builder.append(syndCategory.getName() + ",");
             }
         }
 
-        return category;
+        return builder.toString();
     }
 
     private String getMergedContent(SyndEntry entry) {
-        String content = null;
+        StringBuilder builder = new StringBuilder();
+
         if (entry.getContents() != null) {
             for (Iterator<?> it = entry.getContents().iterator(); it.hasNext();) {
                 SyndContent syndContent = (SyndContent)it.next();
 
                 if (syndContent != null) {
-                    content += syndContent.getValue();
+                    builder.append(syndContent.getValue());
                 }
             }
         }
-        return content;
+        return builder.toString();
     }
 
     public List<FeedEntry> getFeedEntries(String category) {
@@ -89,7 +90,7 @@ public class FeedEntryManager {
         try {
             Dao<FeedEntry, Integer> feedEntryDao = getDao();
 
-            PreparedQuery<FeedEntry> query = feedEntryDao.queryBuilder().where().eq("category", category).prepare();
+            PreparedQuery<FeedEntry> query = feedEntryDao.queryBuilder().where().like("category", "%" + category + "%").prepare();
             feedEntries = feedEntryDao.query(query);
 
         } catch (SQLException e) {
@@ -124,6 +125,7 @@ public class FeedEntryManager {
             long total = feedEntryDao.countOf(feedEntryDao.queryBuilder().setCountOf(true)
                     .where().eq("author", author).and().eq("title", title).prepare());
             entryExist = total > 0;
+            Log.v(TAG, "Duplicate feed entry found.");
 
         } catch (SQLException exception) {
             Log.e(TAG, "Database exception", exception);
