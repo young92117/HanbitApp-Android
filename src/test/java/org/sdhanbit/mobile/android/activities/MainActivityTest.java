@@ -1,4 +1,4 @@
-package org.sdhanbit.mobile.android.activity;
+package org.sdhanbit.mobile.android.activities;
 
 import android.app.Activity;
 import android.app.Application;
@@ -6,18 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.TextView;
-import org.mockito.Mock;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowIntent;
 import org.sdhanbit.mobile.android.test.TestGuiceModule;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.sdhanbit.mobile.android.R;
-import org.sdhanbit.mobile.android.controller.MainActivityController;
 import roboguice.RoboGuice;
 import roboguice.activity.RoboActivity;
 

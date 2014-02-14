@@ -1,4 +1,4 @@
-package org.sdhanbit.mobile.android.activity;
+package org.sdhanbit.mobile.android.activities;
 
 import android.os.Bundle;
 import android.view.Window;

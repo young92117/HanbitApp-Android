@@ -1,4 +1,4 @@
-package org.sdhanbit.mobile.android.manager;
+package org.sdhanbit.mobile.android.managers;
 
 import android.util.Log;
 import com.google.code.rome.android.repackaged.com.sun.syndication.feed.synd.SyndCategory;
@@ -11,7 +11,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.PreparedQuery;
 import org.sdhanbit.mobile.android.MainApplication;
 import org.sdhanbit.mobile.android.database.RssFeedDatabaseHelper;
-import org.sdhanbit.mobile.android.entity.FeedEntry;
+import org.sdhanbit.mobile.android.entities.FeedEntry;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

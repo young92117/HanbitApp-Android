@@ -1,9 +1,9 @@
-package org.sdhanbit.mobile.android.controller;
+package org.sdhanbit.mobile.android.controllers;
 
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
-import org.sdhanbit.mobile.android.activity.NextActivity;
+import org.sdhanbit.mobile.android.activities.NextActivity;
 
 public class MainActivityController {
 

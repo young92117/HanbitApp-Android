@@ -10,7 +10,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import org.sdhanbit.mobile.android.MainApplication;
 import org.sdhanbit.mobile.android.R;
-import org.sdhanbit.mobile.android.entity.FeedEntry;
+import org.sdhanbit.mobile.android.entities.FeedEntry;
 
 import java.sql.SQLException;
 import java.util.Date;

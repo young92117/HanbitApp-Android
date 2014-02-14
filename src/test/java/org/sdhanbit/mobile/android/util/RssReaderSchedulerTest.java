@@ -11,7 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowAlarmManager;
-import org.sdhanbit.mobile.android.scheduler.RssReaderScheduler;
+import org.sdhanbit.mobile.android.schedulers.RssReaderScheduler;
 import org.sdhanbit.mobile.android.test.TestGuiceModule;
 import roboguice.RoboGuice;
 import roboguice.activity.RoboActivity;

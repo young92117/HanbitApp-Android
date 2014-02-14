@@ -1,4 +1,4 @@
-package org.sdhanbit.mobile.android.entity;
+package org.sdhanbit.mobile.android.entities;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;

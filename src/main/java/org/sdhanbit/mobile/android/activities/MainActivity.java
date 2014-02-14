@@ -1,4 +1,4 @@
-package org.sdhanbit.mobile.android.activity;
+package org.sdhanbit.mobile.android.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,8 +7,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.google.inject.Inject;
 import org.sdhanbit.mobile.android.R;
-import org.sdhanbit.mobile.android.controller.MainActivityController;
-import org.sdhanbit.mobile.android.scheduler.RssReaderScheduler;
+import org.sdhanbit.mobile.android.controllers.MainActivityController;
+import org.sdhanbit.mobile.android.schedulers.RssReaderScheduler;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;

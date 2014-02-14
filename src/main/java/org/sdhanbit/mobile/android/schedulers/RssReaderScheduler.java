@@ -1,4 +1,4 @@
-package org.sdhanbit.mobile.android.scheduler;
+package org.sdhanbit.mobile.android.schedulers;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -8,7 +8,7 @@ import android.util.Log;
 import com.google.code.rome.android.repackaged.com.sun.syndication.feed.synd.SyndFeed;
 import com.google.inject.Inject;
 import org.sdhanbit.mobile.android.R;
-import org.sdhanbit.mobile.android.manager.FeedEntryManager;
+import org.sdhanbit.mobile.android.managers.FeedEntryManager;
 import org.sdhanbit.mobile.android.rss.RssAtomFeedRetriever;
 import roboguice.inject.InjectResource;
 import roboguice.receiver.RoboBroadcastReceiver;
