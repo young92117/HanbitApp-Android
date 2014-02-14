@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".rss.RssReaderScheduler">
+        <receiver android:name=".scheduler.RssReaderScheduler">
             <intent-filter>
             </intent-filter>
         </receiver>

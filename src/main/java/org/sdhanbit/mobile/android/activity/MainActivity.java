@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.google.inject.Inject;
 import org.sdhanbit.mobile.android.R;
 import org.sdhanbit.mobile.android.controller.MainActivityController;
-import org.sdhanbit.mobile.android.rss.RssReaderScheduler;
+import org.sdhanbit.mobile.android.scheduler.RssReaderScheduler;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
