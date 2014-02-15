@@ -18,17 +18,6 @@ import java.util.Date;
 public class RssFeedDatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String TAG = RssFeedDatabaseHelper.class.getName();
 
-    public static final String TABLE_FEED_ENTRY = "FeedEntry";
-    // Id, Author, Title, Link, Description, Content, PublishedDate, Category
-    public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_AUTHOR = "author";
-    public static final String COLUMN_TITLE = "title";
-    public static final String COLUMN_LINK = "link";
-    public static final String COLUMN_DESCRIPTION = "description";
-    public static final String COLUMN_CONTENT = "content";
-    public static final String COLUMN_PUBLISHED_DATE = "publishedDate";
-    public static final String COLUMN_CATEGORY = "category";
-
     private static final String DATABASE_NAME = "RssFeed.db";
     private static final int DATABASE_VERSION = 1;
 

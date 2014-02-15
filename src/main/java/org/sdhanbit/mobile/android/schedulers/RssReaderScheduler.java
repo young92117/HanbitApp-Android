@@ -9,6 +9,7 @@ import com.google.code.rome.android.repackaged.com.sun.syndication.feed.synd.Syn
 import com.google.inject.Inject;
 import org.sdhanbit.mobile.android.R;
 import org.sdhanbit.mobile.android.managers.FeedEntryManager;
+import org.sdhanbit.mobile.android.managers.UserPreferenceManager;
 import org.sdhanbit.mobile.android.rss.RssAtomFeedRetriever;
 import roboguice.inject.InjectResource;
 import roboguice.receiver.RoboBroadcastReceiver;
@@ -18,6 +19,9 @@ public class RssReaderScheduler extends RoboBroadcastReceiver {
 
     @Inject
     private AlarmManager mAlarmManager;
+    @Inject
+    private UserPreferenceManager userPreferenceManager;
+
     @InjectResource(R.string.Announcement)
     private String announcementFeedUrl;
     @InjectResource(R.string.PastoralColumn)
@@ -31,7 +35,7 @@ public class RssReaderScheduler extends RoboBroadcastReceiver {
         Intent intent = new Intent(context, RssReaderScheduler.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
         // TODO: Read the sleep time from configuration
-        int sleepTime = 1000 * 60 * 10;
+        int sleepTime = userPreferenceManager.getFeedRefreshFrequencyInMinutes() * 60 * 1000;
         mAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), sleepTime, pendingIntent);
     }
 

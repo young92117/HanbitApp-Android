@@ -64,14 +64,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Android Support Libraries -->
-        <dependency>
-            <groupId>uk.co.icatalyst</groupId>
-            <artifactId>android-support-v4</artifactId>
-            <version>18</version>
-            <scope>compile</scope>
-        </dependency>
-
         <dependency>
             <groupId>com.j256.ormlite</groupId>
             <artifactId>ormlite-android</artifactId>
@@ -92,14 +84,6 @@
             <version>2.4.0</version>
             <scope>compile</scope>
         </dependency>
-
-        <dependency>
-            <groupId>com.actionbarsherlock</groupId>
-            <artifactId>actionbarsherlock</artifactId>
-            <version>4.4.0</version>
-            <type>apklib</type>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -139,15 +123,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>android.support-mvn-repo</id>
-            <url>https://raw.github.com/kmchugh/android.support/mvn-repo</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
 </project>
