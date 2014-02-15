@@ -20,3 +20,6 @@
 https://github.com/SanDiegoHanbitChurch/HanbitApp-Android.git
 ```
 5. For steps after opening the project, see [this presentation](https://docs.google.com/presentation/d/1CDrVr3W5B-jeBLmYCM-50rz_3adjcKSLj-aEXUQPvP4/pub?start=false&loop=false&delayms=3000).
+6. In addition to the above steps to import and configure the project, there are two additional steps
+  1. Need to add two java libraries (.jar) - [android-rome-feed-reader-1.0.0.jar] (https://code.google.com/p/android-rome-feed-reader/) and jdom-1.1.1-android-fork.jar as the dependency. They are both located under "lib" folder.
+  2. Add "DatabaseConfigUtil" Configuration as an Application. This generates [database mapping file](http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_4.html#Config-Optimization) for ORMLite.
