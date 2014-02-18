@@ -9,7 +9,7 @@ import java.util.Date;
 @DatabaseTable(tableName = "FeedEntry")
 public class FeedEntry {
 
-    @DatabaseField(id = true)
+    @DatabaseField(generatedId = true)
     private Integer _id;
     @DatabaseField
     private String author;
@@ -24,22 +24,19 @@ public class FeedEntry {
     @DatabaseField(dataType = DataType.DATE_LONG)
     private Date publishedDate;
     @DatabaseField
-    private String category;
-    @DatabaseField
     private Boolean isViewed;
 
     public FeedEntry() {
         // ORMLite needs a no-arg constructor
     }
 
-    public FeedEntry(String author, String title, String link, String content, String description, Date publishedDate, String category) {
+    public FeedEntry(String author, String title, String link, String content, String description, Date publishedDate) {
         this.author = author;
         this.title = title;
         this.link = link;
         this.content = content;
         this.description = description;
         this.publishedDate = publishedDate;
-        this.category = category;
         this.setIsViewed(false);
     }
 
@@ -89,14 +86,6 @@ public class FeedEntry {
 
     public void setPublishedDate(Date publishedDate) {
         this.publishedDate = publishedDate;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public Boolean getIsViewed() {

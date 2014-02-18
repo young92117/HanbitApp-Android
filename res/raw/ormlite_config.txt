@@ -1,5 +1,5 @@
 #
-# generated on 2014/02/14 03:54:32
+# generated on 2014/02/17 09:48:57
 #
 # --table-start--
 dataClass=org.sdhanbit.mobile.android.entities.FeedEntry
@@ -7,7 +7,7 @@ tableName=FeedEntry
 # --table-fields-start--
 # --field-start--
 fieldName=_id
-id=true
+generatedId=true
 # --field-end--
 # --field-start--
 fieldName=author
@@ -29,10 +29,42 @@ fieldName=publishedDate
 dataPersister=DATE_LONG
 # --field-end--
 # --field-start--
-fieldName=category
+fieldName=isViewed
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=org.sdhanbit.mobile.android.entities.Category
+tableName=Category
+# --table-fields-start--
+# --field-start--
+fieldName=_id
+generatedId=true
 # --field-end--
 # --field-start--
-fieldName=isViewed
+fieldName=name
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=org.sdhanbit.mobile.android.entities.FeedEntryCategory
+tableName=FeedEntryCategory
+# --table-fields-start--
+# --field-start--
+fieldName=_id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=feedEntry
+canBeNull=false
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=category
+canBeNull=false
+foreign=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
