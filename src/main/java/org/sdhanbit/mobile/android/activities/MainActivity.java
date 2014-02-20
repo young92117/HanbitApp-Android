@@ -26,6 +26,8 @@ public class MainActivity extends RoboActivity {
     private Button btnOk;
     @InjectView(R.id.btnNext)
     private Button btnNext;
+    @InjectView(R.id.btnTop)
+    private Button btnTop;
     @InjectResource(R.string.greeting)
     private String greeting;
 
@@ -50,6 +52,13 @@ public class MainActivity extends RoboActivity {
             @Override
             public void onClick(final View view) {
                 controller.OnOkButtonClicked(view.getContext());
+            }
+        });
+
+        btnTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                controller.OnTopButtonClicked(view.getContext());
             }
         });
 
