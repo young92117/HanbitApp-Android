@@ -30,6 +30,9 @@ import android.widget.*;
 
 import java.util.Locale;
 import org.sdhanbit.mobile.android.R;
+import roboguice.activity.RoboActivity;
+import roboguice.inject.InjectResource;
+import roboguice.inject.InjectView;
 
 /**
  * This example illustrates a common usage of the DrawerLayout widget
@@ -58,13 +61,16 @@ import org.sdhanbit.mobile.android.R;
  * An action should be an operation performed on the current contents of the window,
  * for example enabling or disabling a data overlay on top of the current content.</p>
  */
-public class TopActivity extends Activity {
+public class TopActivity extends RoboActivity {
+    @InjectView(R.id.top)
     private DrawerLayout mDrawerLayout;
+    @InjectView(R.id.left_drawer)
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
+    @InjectResource(R.array.planets_array)
     private String[] mPlanetTitles;
 
     @Override
@@ -73,9 +79,9 @@ public class TopActivity extends Activity {
         setContentView(R.layout.top);
 
         mTitle = mDrawerTitle = getTitle();
-        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.top);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+//        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
+//        mDrawerLayout = (DrawerLayout) findViewById(R.id.top);
+//        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
