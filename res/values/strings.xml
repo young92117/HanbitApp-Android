@@ -6,7 +6,7 @@
     <string name="rssreader_service_started">RSS Reader Started</string>
     <string name="rssreader_service_stopped">RSS Reader Stopped</string>
 
-    <string name="app_name">Navigation Drawer Example</string>
+    <string name="app_name">Hanbit Church</string>
     <string-array name="menu_array">
         <item>Main Front</item>
         <item>Works</item>

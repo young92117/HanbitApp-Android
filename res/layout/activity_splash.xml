@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/splash_cross" >
+
+    <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:src="@drawable/hanbit_logo_160" />
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            android:textSize="15dp"
+            android:textColor="#454545"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:text="하나님이 기뻐하시는 교회," />
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:textSize="15dp"
+            android:textColor="#454545"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:text="따뜻한 교회," />
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:textSize="15dp"
+            android:textColor="#454545"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:text="섬기는 교회" />
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
+            android:textSize="13dp"
+            android:textColor="#454545"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:text="www.sdhanbit.org" />
+
+</RelativeLayout>
