@@ -16,17 +16,17 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.NextActivity" android:screenOrientation="portrait">
-            <intent-filter>
-            </intent-filter>
-        </activity>
+<!--         <activity android:name=".activities.NextActivity" android:screenOrientation="portrait"> -->
+<!--             <intent-filter> -->
+<!--             </intent-filter> -->
+<!--         </activity> -->
 
-        <activity android:name=".activities.TopActivity" android:screenOrientation="portrait">
-            <intent-filter>
+<!--         <activity android:name=".activities.TopActivity" android:screenOrientation="portrait"> -->
+<!--             <intent-filter> -->
 <!--                 <action android:name="android.intent.action.MAIN" /> -->
 <!--                 <category android:name="android.intent.category.LAUNCHER" /> -->
-            </intent-filter>
-        </activity>
+<!--             </intent-filter> -->
+<!--         </activity> -->
 
         <receiver android:name=".schedulers.RssReaderScheduler">
             <intent-filter>

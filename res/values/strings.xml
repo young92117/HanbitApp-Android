@@ -7,15 +7,17 @@
     <string name="rssreader_service_stopped">RSS Reader Stopped</string>
 
     <string name="app_name">Navigation Drawer Example</string>
-    <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+    <string-array name="menu_array">
+        <item>Main Front</item>
+        <item>Works</item>
+        <item>Hope Seed</item>
+        <item>Pastor Column</item>
+        <item>News</item>
+        <item>Memory Verse</item>
+        <item>Hanbit</item>
+        <item>Sermon videos</item>
+        <item >Sermon Texts</item>
+        <item >Sermon Seeds</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>

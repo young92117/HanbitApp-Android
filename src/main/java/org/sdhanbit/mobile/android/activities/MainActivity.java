@@ -55,7 +55,7 @@ public class MainActivity extends RoboActivity {
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    @InjectResource(R.array.planets_array)
+    @InjectResource(R.array.menu_array)
     private String[] mPlanetTitles;
     public static Context context;
 
@@ -198,7 +198,7 @@ public class MainActivity extends RoboActivity {
         // update the main content by replacing fragments
         Fragment fragment = new PlanetFragment();
         Bundle args = new Bundle();
-        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+        args.putInt(PlanetFragment.ARG_MENU_NUMBER, position);
         fragment.setArguments(args);
 
         FragmentManager fragmentManager = getFragmentManager();
@@ -239,7 +239,7 @@ public class MainActivity extends RoboActivity {
      * Fragment that appears in the "content_frame", shows a planet
      */
     public static class PlanetFragment extends Fragment {
-        public static final String ARG_PLANET_NUMBER = "planet_number";
+        public static final String ARG_MENU_NUMBER = "menu_number";
 
         public PlanetFragment() {
             // Empty constructor required for fragment subclasses
@@ -248,7 +248,7 @@ public class MainActivity extends RoboActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            int i = getArguments().getInt(ARG_PLANET_NUMBER);
+            int i = getArguments().getInt(ARG_MENU_NUMBER);
             View rootView;
             if(i == 0)
             {
@@ -257,17 +257,17 @@ public class MainActivity extends RoboActivity {
                 gridView.setAdapter(new GridViewContent(context));
                 gridView.setOnItemClickListener(gridItemClickListener);
 
-            	String planet = getResources().getStringArray(R.array.planets_array)[i];
-	            getActivity().setTitle(planet);
+            	String menu = getResources().getStringArray(R.array.menu_array)[i];
+	            getActivity().setTitle(menu);
             }
             else
             {
             	rootView = inflater.inflate(R.layout.fragment_planet, container, false);
-                String planet = getResources().getStringArray(R.array.planets_array)[i];
-	            int imageId = getResources().getIdentifier(planet.toLowerCase(Locale.getDefault()),
+                String menu = getResources().getStringArray(R.array.menu_array)[i];
+	            int imageId = getResources().getIdentifier(menu.toLowerCase(Locale.getDefault()),
 	                    "drawable", getActivity().getPackageName());
 	            ((ImageView) rootView.findViewById(R.id.image)).setImageResource(imageId);
-	            getActivity().setTitle(planet);
+	            getActivity().setTitle(menu);
             }
             return rootView;
         }
