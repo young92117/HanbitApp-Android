@@ -57,7 +57,7 @@ public class MainActivity extends RoboActivity {
     private CharSequence mTitle;
     @InjectResource(R.array.planets_array)
     private String[] mPlanetTitles;
-    private static Context context;
+    public static Context context;
 
 //    @InjectView(R.id.textGreeting)
 //    private TextView txtGreeting;
@@ -194,7 +194,7 @@ public class MainActivity extends RoboActivity {
         }
     }
 
-    private void selectItem(int position) {
+    public void selectItem(int position) {
         // update the main content by replacing fragments
         Fragment fragment = new PlanetFragment();
         Bundle args = new Bundle();
@@ -255,7 +255,7 @@ public class MainActivity extends RoboActivity {
             	rootView = inflater.inflate(R.layout.front_page, container, false);
                 GridView gridView = (GridView)(rootView.findViewById(R.id.main_grid));
                 gridView.setAdapter(new GridViewContent(context));
-                gridView.setOnItemClickListener(itemClickListener);
+                gridView.setOnItemClickListener(gridItemClickListener);
 
             	String planet = getResources().getStringArray(R.array.planets_array)[i];
 	            getActivity().setTitle(planet);
@@ -271,11 +271,11 @@ public class MainActivity extends RoboActivity {
             }
             return rootView;
         }
-        private OnItemClickListener itemClickListener = new OnItemClickListener() 
+        private OnItemClickListener gridItemClickListener = new OnItemClickListener() 
         {
         	public void onItemClick(AdapterView<?> arg0, View view, int position, long id) 
     		{
-//        		controller.OnTopButtonClicked(view.getContext());
+        		((MainActivity)(MainActivity.context)).selectItem(position);
     		}
         };
     }
