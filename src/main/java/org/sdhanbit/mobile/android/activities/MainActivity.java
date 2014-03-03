@@ -292,15 +292,15 @@ class GridViewContent extends BaseAdapter {
 	private Context context;
 	
 	public int [] gv_fill = {
-			R.drawable.jupiter,
-			R.drawable.jupiter,
-			R.drawable.jupiter,
-			R.drawable.jupiter,
-			R.drawable.jupiter,
-			R.drawable.jupiter,
-			R.drawable.jupiter,
-			R.drawable.jupiter,
-			R.drawable.jupiter,
+			R.drawable.bg_main_actions,
+			R.drawable.bg_main_hopes,
+			R.drawable.bg_main_ministry,
+			R.drawable.bg_main_news,
+			R.drawable.bg_main_recitation,
+			R.drawable.bg_main_sdhanbit,
+			R.drawable.bg_main_sermon,
+			R.drawable.bg_main_share,
+			R.drawable.bg_main_words,
 	};
 	
 	public GridViewContent(Context c){
