@@ -275,7 +275,7 @@ public class MainActivity extends RoboActivity {
         {
         	public void onItemClick(AdapterView<?> arg0, View view, int position, long id) 
     		{
-        		((MainActivity)(MainActivity.context)).selectItem(position);
+        		((MainActivity)(MainActivity.context)).selectItem(position+1);
     		}
         };
     }
