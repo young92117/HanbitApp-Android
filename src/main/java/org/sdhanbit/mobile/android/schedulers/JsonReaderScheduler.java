@@ -53,6 +53,7 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
    			parameters.putString("pubDate", "");
    			parameters.putString("count", "");
         	mFeedAPIRunner.feed(parameters, "GET", new FeedRequestListener());
+        	Log.v(TAG,"Json is requested");
         } catch (Exception exception) {
             Log.e(TAG, exception.getMessage());
         }
@@ -62,10 +63,11 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
 
 			if(response.equals("exception") || response.equals("timedout"))
 			{
-				//TODO: Do the exceptional work here (e.g. server is not responding)
+				Log.e(TAG,"Server connection timeout");
 				return;
 			}
 			
+			Log.v(TAG,response);
 			JSONArray feed_array;
 			try {
 				JSONObject json = Util.parseJson(response);

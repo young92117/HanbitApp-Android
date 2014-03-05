@@ -8,9 +8,9 @@ import android.os.Bundle;
 
 public class FeedAPI {
 
-	public static String BASE_URL = "http://www.sdhanbit.org/wordpress/wp_api/v1/posts";
+	public static String BASE_URL = "http://www.sdhanbit.org/wordpress/wp_api/";
 	
-    protected static String SERMON_GET_PATH = BASE_URL+"/sermon_get.php";
+    protected static String SERMON_GET_PATH = BASE_URL+"v1/posts";
     
     public String feed(Bundle parameters, String httpMethod) throws FileNotFoundException, MalformedURLException, IOException 
     {

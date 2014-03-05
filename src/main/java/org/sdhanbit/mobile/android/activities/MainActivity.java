@@ -34,6 +34,7 @@ import com.google.inject.Inject;
 
 import org.sdhanbit.mobile.android.R;
 import org.sdhanbit.mobile.android.controllers.MainActivityController;
+import org.sdhanbit.mobile.android.schedulers.JsonReaderScheduler;
 import org.sdhanbit.mobile.android.schedulers.RssReaderScheduler;
 
 import roboguice.activity.RoboActivity;
@@ -42,10 +43,12 @@ import roboguice.inject.InjectView;
 
 public class MainActivity extends RoboActivity {
 
-    @Inject
-    private MainActivityController controller;
-    @Inject
-    private RssReaderScheduler mRssReaderScheduler;
+//    @Inject
+//    private MainActivityController controller;
+//    @Inject
+//    private RssReaderScheduler mRssReaderScheduler;
+	@Inject
+    private JsonReaderScheduler mJsonReaderScheduler;
     
     @InjectView(R.id.top)
     private DrawerLayout mDrawerLayout;
@@ -141,7 +144,8 @@ public class MainActivity extends RoboActivity {
           selectItem(0);
       }
 
-      mRssReaderScheduler.setAlarm(this);
+//      mRssReaderScheduler.setAlarm(this);
+      mJsonReaderScheduler.setAlarm(this);
     }
     
 
@@ -282,7 +286,8 @@ public class MainActivity extends RoboActivity {
     
     @Override
     protected void onStop() {
-        mRssReaderScheduler.cancelAlarm(this);
+//        mRssReaderScheduler.cancelAlarm(this);
+        mJsonReaderScheduler.cancelAlarm(this);
         super.onStop();
     }
 }

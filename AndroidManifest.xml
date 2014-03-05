@@ -40,7 +40,7 @@
 <!--             </intent-filter> -->
 <!--         </activity> -->
 
-        <receiver android:name=".schedulers.RssReaderScheduler">
+        <receiver android:name=".schedulers.JsonReaderScheduler">
             <intent-filter>
             </intent-filter>
         </receiver>
