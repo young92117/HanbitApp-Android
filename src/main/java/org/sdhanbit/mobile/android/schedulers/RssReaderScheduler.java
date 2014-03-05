@@ -80,7 +80,7 @@ public class RssReaderScheduler extends RoboBroadcastReceiver {
 
         @Override
         protected void onSuccess(SyndFeed syndFeed) throws Exception {
-            feedEntryManager.addSyndFeed(syndFeed);
+//            feedEntryManager.addSyndFeed(syndFeed);
         }
 
         @Override

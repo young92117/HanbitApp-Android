@@ -12,17 +12,13 @@ public class FeedEntry {
     @DatabaseField(generatedId = true)
     private Integer _id;
     @DatabaseField
-    private String author;
+    private String date;
     @DatabaseField
     private String title;
     @DatabaseField
-    private String link;
-    @DatabaseField
     private String content;
     @DatabaseField
-    private String description;
-    @DatabaseField(dataType = DataType.DATE_LONG)
-    private Date publishedDate;
+    private String type;
     @DatabaseField
     private Boolean isViewed;
 
@@ -30,22 +26,20 @@ public class FeedEntry {
         // ORMLite needs a no-arg constructor
     }
 
-    public FeedEntry(String author, String title, String link, String content, String description, Date publishedDate) {
-        this.author = author;
+    public FeedEntry(String date, String title, String content, String type) {
+    	this.date = date;
         this.title = title;
-        this.link = link;
         this.content = content;
-        this.description = description;
-        this.publishedDate = publishedDate;
+        this.type = type;
         this.setIsViewed(false);
     }
 
-    public String getAuthor() {
-        return author;
+    public String getDate() { // "yyyyMMddHHmmss" format
+        return date;
     }
-
-    public void setAuthor(String author) {
-        this.author = author;
+    
+    public void setDate(String date) { // "yyyyMMddHHmmss" format
+        this.date = date;
     }
 
     public String getTitle() {
@@ -56,14 +50,6 @@ public class FeedEntry {
         this.title = title;
     }
 
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
     public String getContent() {
         return content;
     }
@@ -72,20 +58,12 @@ public class FeedEntry {
         this.content = content;
     }
 
-    public String getDescription() {
-        return description;
+    public String getType() {
+        return type;
     }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getPublishedDate() {
-        return publishedDate;
-    }
-
-    public void setPublishedDate(Date publishedDate) {
-        this.publishedDate = publishedDate;
+    
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Boolean getIsViewed() {

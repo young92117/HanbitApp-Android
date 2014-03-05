@@ -21,6 +21,7 @@ import org.sdhanbit.mobile.android.json.FeedAPI;
 import org.sdhanbit.mobile.android.json.FeedAPIError;
 import org.sdhanbit.mobile.android.json.FeedAPIRunner;
 import org.sdhanbit.mobile.android.json.Util;
+import org.sdhanbit.mobile.android.managers.FeedEntryManager;
 import org.sdhanbit.mobile.android.managers.UserPreferenceManager;
 
 import roboguice.receiver.RoboBroadcastReceiver;
@@ -31,6 +32,8 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
     private AlarmManager mAlarmManager;
     @Inject
     private UserPreferenceManager userPreferenceManager;
+    @Inject
+    private FeedEntryManager feedEntryManager;
 
     private static final String TAG = "JsonReaderScheduler";
     private static FeedAPIRunner mFeedAPIRunner;
@@ -81,7 +84,6 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
 			String title = "";
 			String content = "";
 			JSONObject taxo;
-			Iterator<String> keys;
 			String type = "";
 			try {
 				JSONObject json = Util.parseJson(response);
@@ -99,6 +101,7 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
 							  "title: "+title+"\n"+
 							  "content: "+content+"\n"+
 							  "type: "+type+"\n\n");
+					feedEntryManager.addJsonFeed(date, title, content, type);
 				}
 			} catch (JSONException e) {
 				Log.e(TAG,e.getMessage());

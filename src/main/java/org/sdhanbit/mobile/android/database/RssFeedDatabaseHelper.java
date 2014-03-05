@@ -64,19 +64,19 @@ public class RssFeedDatabaseHelper extends OrmLiteSqliteOpenHelper {
             categoryDao.create(category);
             Log.i(TAG, "created new category in onCreate: " + category.getName());
 
-            Dao<FeedEntry, Integer> feedEntryDao = getFeedEntryDao();
-            FeedEntry entry1 = new FeedEntry("Sang Yum", "New Entry", "http://www.sdhanbit.org/", "Content", "Description", new Date(System.currentTimeMillis()));
-            feedEntryDao.create(entry1);
-            Log.i(TAG, "created new entries in onCreate: " + entry1.getDescription());
-            FeedEntry entry2 = new FeedEntry("Sang Yum", "New Entry1", "http://www.sdhanbit.org/", "Content1", "Description1", new Date(System.currentTimeMillis()));
-            feedEntryDao.create(entry2);
-            Log.i(TAG, "created new entries in onCreate: " + entry2.getDescription());
+//            Dao<FeedEntry, Integer> feedEntryDao = getFeedEntryDao();
+//            FeedEntry entry1 = new FeedEntry("Sang Yum", "New Entry", "http://www.sdhanbit.org/", "Content", "Description", new Date(System.currentTimeMillis()));
+//            feedEntryDao.create(entry1);
+//            Log.i(TAG, "created new entries in onCreate: " + entry1.getDescription());
+//            FeedEntry entry2 = new FeedEntry("Sang Yum", "New Entry1", "http://www.sdhanbit.org/", "Content1", "Description1", new Date(System.currentTimeMillis()));
+//            feedEntryDao.create(entry2);
+//            Log.i(TAG, "created new entries in onCreate: " + entry2.getDescription());
 
-            Dao<FeedEntryCategory, Integer> feedEntryCategoryDao = getFeedEntryCategoryDao();
-            FeedEntryCategory feedEntryCategory1 = new FeedEntryCategory(category, entry1);
-            feedEntryCategoryDao.create(feedEntryCategory1);
-            FeedEntryCategory feedEntryCategory2 = new FeedEntryCategory(category, entry2);
-            feedEntryCategoryDao.create(feedEntryCategory2);
+//            Dao<FeedEntryCategory, Integer> feedEntryCategoryDao = getFeedEntryCategoryDao();
+//            FeedEntryCategory feedEntryCategory1 = new FeedEntryCategory(category, entry1);
+//            feedEntryCategoryDao.create(feedEntryCategory1);
+//            FeedEntryCategory feedEntryCategory2 = new FeedEntryCategory(category, entry2);
+//            feedEntryCategoryDao.create(feedEntryCategory2);
         } catch (SQLException e) {
             e.printStackTrace();
             Log.e(TAG, "Can't insert the sample data", e);
