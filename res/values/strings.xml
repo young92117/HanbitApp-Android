@@ -9,10 +9,10 @@
     <string name="app_name">Hanbit Church</string>
     <string-array name="menu_array">
         <item>Main Front</item>
-        <item>Works</item>
+        <item>News</item><item>Works</item>
         <item>Hope Seed</item>
         <item>Pastor Column</item>
-        <item>News</item>
+        
         <item>Memory Verse</item>
         <item>Hanbit</item>
         <item>Sermon videos</item>

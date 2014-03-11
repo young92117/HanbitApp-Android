@@ -48,15 +48,37 @@ public class FeedEntryManager extends BaseJsonFeedDatabaseManager {
         try {
             Dao<FeedEntry, Integer> feedEntryDao = getFeedEntryDao();
 
-            PreparedQuery<FeedEntry> query = feedEntryDao.queryBuilder().where().like("type", "%" + type + "%").prepare();
+            PreparedQuery<FeedEntry> query = feedEntryDao.queryBuilder()
+            		                         .orderBy("date", false).where().eq("type", type).prepare();
             feedEntries = feedEntryDao.query(query);
-
         } catch (SQLException e) {
             e.printStackTrace();
             Log.e(TAG, "Database exception", e);
         }
 
         return feedEntries;
+    }
+    
+    public String getTheRecentDate(String type) {
+    	
+    	String date="";
+        List<FeedEntry> feedEntries = new ArrayList<FeedEntry>();
+
+        try {
+            Dao<FeedEntry, Integer> feedEntryDao = getFeedEntryDao();
+
+            PreparedQuery<FeedEntry> query = feedEntryDao.queryBuilder()
+            		                         .orderBy("date", false).where().eq("type", type).prepare();
+            feedEntries = feedEntryDao.query(query);
+            if(feedEntries.size() != 0)
+            	date=feedEntries.get(0).getDate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Log.e(TAG, "Database exception", e);
+        }
+
+        return date;
     }
 
     public void markFeedEntryAsViewed(FeedEntry feedEntry) {
@@ -72,27 +94,27 @@ public class FeedEntryManager extends BaseJsonFeedDatabaseManager {
         }
     }
 
-    private boolean doesFeedEntryExist(SyndEntry entry) {
-
-        boolean entryExist = false;
-
-        try {
-            Dao<FeedEntry, Integer> feedEntryIntegerDao = getFeedEntryDao();
-
-            FeedEntry feedEntry = feedEntryIntegerDao.queryForFirst(
-                    feedEntryIntegerDao.queryBuilder()
-                            .where()
-                            .eq("author", entry.getAuthor())
-                            .and()
-                            .eq("title", entry.getTitle()).prepare());
-            entryExist = feedEntry != null;
-            Log.v(TAG, "Duplicate feed entry found.");
-
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-            Log.e(TAG, "Database exception", exception);
-        }
-
-        return entryExist;
-    }
+//    private boolean doesFeedEntryExist(SyndEntry entry) {
+//
+//        boolean entryExist = false;
+//
+//        try {
+//            Dao<FeedEntry, Integer> feedEntryIntegerDao = getFeedEntryDao();
+//
+//            FeedEntry feedEntry = feedEntryIntegerDao.queryForFirst(
+//                    feedEntryIntegerDao.queryBuilder()
+//                            .where()
+//                            .eq("author", entry.getAuthor())
+//                            .and()
+//                            .eq("title", entry.getTitle()).prepare());
+//            entryExist = feedEntry != null;
+//            Log.v(TAG, "Duplicate feed entry found.");
+//
+//        } catch (SQLException exception) {
+//            exception.printStackTrace();
+//            Log.e(TAG, "Database exception", exception);
+//        }
+//
+//        return entryExist;
+//    }
 }

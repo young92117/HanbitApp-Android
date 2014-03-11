@@ -1,5 +1,8 @@
 package org.sdhanbit.mobile.android.activities;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import android.app.Fragment;
@@ -8,10 +11,12 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +31,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +41,11 @@ import com.google.inject.Inject;
 
 import org.sdhanbit.mobile.android.R;
 import org.sdhanbit.mobile.android.controllers.MainActivityController;
+import org.sdhanbit.mobile.android.entities.FeedEntry;
+import org.sdhanbit.mobile.android.managers.FeedEntryManager;
 import org.sdhanbit.mobile.android.schedulers.JsonReaderScheduler;
 import org.sdhanbit.mobile.android.schedulers.RssReaderScheduler;
+import org.sdhanbit.mobile.android.managers.FeedEntryManager;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectResource;
@@ -49,7 +59,9 @@ public class MainActivity extends RoboActivity {
 //    private RssReaderScheduler mRssReaderScheduler;
 	@Inject
     private JsonReaderScheduler mJsonReaderScheduler;
-    
+	@Inject
+    public FeedEntryManager feedEntryManager;
+
     @InjectView(R.id.top)
     private DrawerLayout mDrawerLayout;
     @InjectView(R.id.left_drawer)
@@ -60,8 +72,8 @@ public class MainActivity extends RoboActivity {
     private CharSequence mTitle;
     @InjectResource(R.array.menu_array)
     private String[] mPlanetTitles;
-    public static Context context;
-
+    public static Context mContext;
+    public static String TAG = "MainActivity";
 //    @InjectView(R.id.textGreeting)
 //    private TextView txtGreeting;
 //    @InjectView(R.id.btnOk)
@@ -78,7 +90,7 @@ public class MainActivity extends RoboActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.main);
-        context = this;
+        mContext = this;
         
 //        txtGreeting.setText(greeting);
 //
@@ -242,7 +254,7 @@ public class MainActivity extends RoboActivity {
     /**
      * Fragment that appears in the "content_frame", shows a planet
      */
-    public static class PlanetFragment extends Fragment {
+    public class PlanetFragment extends Fragment {
         public static final String ARG_MENU_NUMBER = "menu_number";
 
         public PlanetFragment() {
@@ -254,34 +266,60 @@ public class MainActivity extends RoboActivity {
                                  Bundle savedInstanceState) {
             int i = getArguments().getInt(ARG_MENU_NUMBER);
             View rootView;
-            if(i == 0)
+            String menu;
+            int imageId;
+            switch(i)
             {
+            case 0: //Main front page
             	rootView = inflater.inflate(R.layout.front_page, container, false);
                 GridView gridView = (GridView)(rootView.findViewById(R.id.main_grid));
-                gridView.setAdapter(new GridViewContent(context));
+                gridView.setAdapter(new GridViewContent(mContext));
                 gridView.setOnItemClickListener(gridItemClickListener);
 
-            	String menu = getResources().getStringArray(R.array.menu_array)[i];
+            	menu = getResources().getStringArray(R.array.menu_array)[i];
 	            getActivity().setTitle(menu);
-            }
-            else
-            {
-            	rootView = inflater.inflate(R.layout.fragment_planet, container, false);
-                String menu = getResources().getStringArray(R.array.menu_array)[i];
-	            int imageId = getResources().getIdentifier(menu.toLowerCase(Locale.getDefault()),
-	                    "drawable", getActivity().getPackageName());
-	            ((ImageView) rootView.findViewById(R.id.image)).setImageResource(imageId);
+	            break;
+            case 1:  // News
+            	rootView = inflater.inflate(R.layout.news, container, false);
+                menu = getResources().getStringArray(R.array.menu_array)[i];
+	            constructNews(rootView);
 	            getActivity().setTitle(menu);
+	            break;
+            default:
+            		rootView = inflater.inflate(R.layout.fragment_planet, container, false);
+                    menu = getResources().getStringArray(R.array.menu_array)[i];
+    	            imageId = getResources().getIdentifier(menu.toLowerCase(Locale.getDefault()),
+    	                    "drawable", getActivity().getPackageName());
+    	            ((ImageView) rootView.findViewById(R.id.image)).setImageResource(imageId);
+    	            getActivity().setTitle(menu);
+            	
             }
+
             return rootView;
         }
         private OnItemClickListener gridItemClickListener = new OnItemClickListener() 
         {
         	public void onItemClick(AdapterView<?> arg0, View view, int position, long id) 
     		{
-        		((MainActivity)(MainActivity.context)).selectItem(position+1);
+        		((MainActivity)(MainActivity.mContext)).selectItem(position+1);
     		}
         };
+    }
+    
+    public void constructNews(View mainView)
+    {
+    	Log.v(TAG, "Starting News");
+    	final ArrayList<String> list = new ArrayList<String>();
+   	 	ListView news_list = (ListView)(mainView.findViewById(R.id.news_list));
+    	List<FeedEntry> entries = feedEntryManager.getFeedEntries("15");
+    	for(int i = 0 ; i < entries.size(); i++)
+    	{
+    		Log.v(TAG, entries.get(i).getTitle());
+    		list.add(entries.get(i).getTitle());
+    	}
+   	    final StableArrayAdapter adapter = new StableArrayAdapter(this,
+    	        android.R.layout.simple_list_item_1, list);
+    	news_list.setAdapter(adapter);
     }
     
     @Override
@@ -292,17 +330,43 @@ public class MainActivity extends RoboActivity {
     }
 }
 
+class StableArrayAdapter extends ArrayAdapter<String> {
+
+    HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+
+    public StableArrayAdapter(Context context, int textViewResourceId,
+        List<String> objects) {
+      super(context, textViewResourceId, objects);
+      for (int i = 0; i < objects.size(); ++i) {
+        mIdMap.put(objects.get(i), i);
+      }
+    }
+
+    @Override
+    public long getItemId(int position) {
+      String item = getItem(position);
+      return mIdMap.get(item);
+    }
+
+    @Override
+    public boolean hasStableIds() {
+      return true;
+    }
+
+}
+
+
 class GridViewContent extends BaseAdapter {
 	 
 	private Context context;
 	
 	public int [] gv_fill = {
+			R.drawable.main_news,
 			R.drawable.main_actions,
 			R.drawable.main_hopes,
 			R.drawable.main_ministry,
 			R.drawable.main_recitation,
-            R.drawable.main_news,
-			R.drawable.main_sdhanbit,
+            R.drawable.main_sdhanbit,
 			R.drawable.main_sermon,
 			R.drawable.main_share,
 			R.drawable.main_words,

@@ -9,7 +9,7 @@ import java.util.Date;
 @DatabaseTable(tableName = "FeedEntry")
 public class FeedEntry {
 
-    @DatabaseField(generatedId = true)
+    @DatabaseField(id = true)
     private Integer _id;
     @DatabaseField
     private String date;
@@ -21,17 +21,21 @@ public class FeedEntry {
     private String type;
     @DatabaseField
     private Boolean isViewed;
+    @DatabaseField
+    private Boolean isProtected;
 
     public FeedEntry() {
         // ORMLite needs a no-arg constructor
     }
 
     public FeedEntry(String date, String title, String content, String type) {
+    	this._id = (date+type).hashCode();
     	this.date = date;
         this.title = title;
         this.content = content;
         this.type = type;
         this.setIsViewed(false);
+        this.setIsProtected(false);
     }
 
     public String getDate() { // "yyyyMMddHHmmss" format
@@ -72,5 +76,9 @@ public class FeedEntry {
 
     public void setIsViewed(Boolean isViewed) {
         this.isViewed = isViewed;
+    }
+    
+    public void setIsProtected(Boolean isProtected) {
+        this.isProtected = isProtected;
     }
 }

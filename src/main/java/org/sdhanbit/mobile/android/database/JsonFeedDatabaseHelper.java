@@ -47,7 +47,7 @@ public class JsonFeedDatabaseHelper extends OrmLiteSqliteOpenHelper {
             Log.e(TAG, "Can't create database", e);
             throw new RuntimeException(e);
         }
-        insertTestData();
+//        insertTestData();
     }
 
     private void insertTestData() {

@@ -37,7 +37,6 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
 
     private static final String TAG = "JsonReaderScheduler";
     private static FeedAPIRunner mFeedAPIRunner;
-    private static String theLastDate = "";
     SimpleDateFormat feed_date_fmt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
     SimpleDateFormat db_date_fmt = new SimpleDateFormat("yyyyMMddHHmmss");
 
@@ -47,7 +46,6 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
         // TODO: Read the sleep time from configuration
         int sleepTime = userPreferenceManager.getFeedRefreshFrequencyInMinutes() * 60 * 1000;
         mAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), sleepTime, pendingIntent);
-        // TODO: Read the database and update theLastDate with the most recent feed's time
     }
 
     public void cancelAlarm(Context context) {
@@ -58,19 +56,38 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
 
     @Override
     protected void handleReceive(Context context, Intent intent) {
-        try {
-        	mFeedAPIRunner = new FeedAPIRunner(new FeedAPI());
-        	Bundle parameters = new Bundle();
+    	mFeedAPIRunner = new FeedAPIRunner(new FeedAPI());
+    	
+    	requestJsonFeed(61); //Sermon Study
+    	requestJsonFeed(47); //Events
+    	requestJsonFeed(14); //Pastor Column
+    	requestJsonFeed(15); //News
+    	requestJsonFeed(30); //Sermon Text
+    	requestJsonFeed(86); //Hope Seed
+    }
+    
+    public void requestJsonFeed(int cat)
+    {
+    	Bundle parameters = new Bundle();
+    	String theLastDate;
+    	try {
+    		theLastDate = feedEntryManager.getTheRecentDate(cat+"");
         	if(!theLastDate.equals(""))
         		parameters.putString("after", theLastDate);
-//   			parameters.putString("count", "");
-        	mFeedAPIRunner.feed(parameters, "GET", new FeedRequestListener());
-        	Log.v(TAG,"Json is requested");
+        	parameters.putString("per_page", "20");
+   			parameters.putString("cat", cat+"");
+        	mFeedAPIRunner.feed(parameters, "GET", new FeedRequestListener(cat));
+        	Log.v(TAG,cat + " Json is requested after"+ theLastDate);
         } catch (Exception exception) {
             Log.e(TAG, exception.getMessage());
         }
     }
     public class FeedRequestListener extends BaseRequestListener {
+    	String type;
+    	public FeedRequestListener(int cat)
+    	{
+    		this.type = cat+"";
+    	}
 		public void onComplete(final String response) {
 
 			if(response.equals("exception") || response.equals("timedout"))
@@ -83,35 +100,31 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
 			String date = "";
 			String title = "";
 			String content = "";
-			JSONObject taxo;
-			String type = "";
 			try {
 				JSONObject json = Util.parseJson(response);
 				feed_array = json.getJSONArray("posts");
 				for (int i = 0; i < feed_array.length(); i++) 
 				{
-					date = db_date_fmt.format(feed_date_fmt.parse(feed_array.getJSONObject(i).getString("date")));
-					if(i == 0)
-						theLastDate = date;
-					title = feed_array.getJSONObject(i).getString("title");
-					content = feed_array.getJSONObject(i).getString("content");
-					taxo = feed_array.getJSONObject(i).getJSONObject("taxonomies").getJSONObject("category");
-					type = taxo.toString().subSequence(2, 4).toString();
-					Log.v(TAG,"Date: "+date+"\n"+
-							  "title: "+title+"\n"+
-							  "content: "+content+"\n"+
-							  "type: "+type+"\n\n");
-					feedEntryManager.addJsonFeed(date, title, content, type);
+					try
+					{
+						date = db_date_fmt.format(feed_date_fmt.parse(feed_array.getJSONObject(i).getString("date")));
+						title = feed_array.getJSONObject(i).getString("title");
+						content = feed_array.getJSONObject(i).getString("content");
+						Log.v(TAG,"Date: "+date+"\n"+
+								  "title: "+title+"\n"+
+								  "content: "+content+"\n"+
+								  "type: "+type+"\n\n");
+						feedEntryManager.addJsonFeed(date, title, content, type);
+					}catch(Exception e)
+					{
+						Log.e(TAG,e.getMessage());
+					}
 				}
-			} catch (JSONException e) {
+			} catch (Exception e) {
 				Log.e(TAG,e.getMessage());
 			} catch (FeedAPIError e) {
 				Log.e(TAG,e.getMessage());
-			} catch (Exception e) {
-				Log.e(TAG,e.getMessage());
-			}
-			
-			//TODO: Insert feed information to the database here.
+			} 
 		}
     }
 }
