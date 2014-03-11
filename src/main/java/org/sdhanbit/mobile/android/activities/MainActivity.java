@@ -45,7 +45,6 @@ import org.sdhanbit.mobile.android.entities.FeedEntry;
 import org.sdhanbit.mobile.android.managers.FeedEntryManager;
 import org.sdhanbit.mobile.android.schedulers.JsonReaderScheduler;
 import org.sdhanbit.mobile.android.schedulers.RssReaderScheduler;
-import org.sdhanbit.mobile.android.managers.FeedEntryManager;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectResource;
@@ -282,7 +281,7 @@ public class MainActivity extends RoboActivity {
             case 1:  // News
             	rootView = inflater.inflate(R.layout.news, container, false);
                 menu = getResources().getStringArray(R.array.menu_array)[i];
-	            constructNews(rootView);
+	            new News(mContext, feedEntryManager, rootView).constructNews();
 	            getActivity().setTitle(menu);
 	            break;
             default:
@@ -306,22 +305,6 @@ public class MainActivity extends RoboActivity {
         };
     }
     
-    public void constructNews(View mainView)
-    {
-    	Log.v(TAG, "Starting News");
-    	final ArrayList<String> list = new ArrayList<String>();
-   	 	ListView news_list = (ListView)(mainView.findViewById(R.id.news_list));
-    	List<FeedEntry> entries = feedEntryManager.getFeedEntries("15");
-    	for(int i = 0 ; i < entries.size(); i++)
-    	{
-    		Log.v(TAG, entries.get(i).getTitle());
-    		list.add(entries.get(i).getTitle());
-    	}
-   	    final StableArrayAdapter adapter = new StableArrayAdapter(this,
-    	        android.R.layout.simple_list_item_1, list);
-    	news_list.setAdapter(adapter);
-    }
-    
     @Override
     protected void onStop() {
 //        mRssReaderScheduler.cancelAlarm(this);
@@ -329,32 +312,6 @@ public class MainActivity extends RoboActivity {
         super.onStop();
     }
 }
-
-class StableArrayAdapter extends ArrayAdapter<String> {
-
-    HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
-
-    public StableArrayAdapter(Context context, int textViewResourceId,
-        List<String> objects) {
-      super(context, textViewResourceId, objects);
-      for (int i = 0; i < objects.size(); ++i) {
-        mIdMap.put(objects.get(i), i);
-      }
-    }
-
-    @Override
-    public long getItemId(int position) {
-      String item = getItem(position);
-      return mIdMap.get(item);
-    }
-
-    @Override
-    public boolean hasStableIds() {
-      return true;
-    }
-
-}
-
 
 class GridViewContent extends BaseAdapter {
 	 
