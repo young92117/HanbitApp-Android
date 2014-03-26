@@ -278,10 +278,58 @@ public class MainActivity extends RoboActivity {
             	menu = getResources().getStringArray(R.array.menu_array)[i];
 	            getActivity().setTitle(menu);
 	            break;
-            case 1:  // News
+            case 1: //Church Introduction
+            	rootView = inflater.inflate(R.layout.introduction, container, false);
+                menu = getResources().getStringArray(R.array.menu_array)[i];
+	            new Introduction(mContext, feedEntryManager, rootView).construct();
+	            getActivity().setTitle(menu);
+	            break;
+            case 2:  // News
             	rootView = inflater.inflate(R.layout.news, container, false);
                 menu = getResources().getStringArray(R.array.menu_array)[i];
 	            new News(mContext, feedEntryManager, rootView).constructNews();
+	            getActivity().setTitle(menu);
+	            break;
+            case 3: //Actions
+            	rootView = inflater.inflate(R.layout.actions, container, false);
+                menu = getResources().getStringArray(R.array.menu_array)[i];
+	            new Actions(mContext, feedEntryManager, rootView).construct();
+	            getActivity().setTitle(menu);
+	            break;
+            case 4: //Hopes
+            	rootView = inflater.inflate(R.layout.hopes, container, false);
+                menu = getResources().getStringArray(R.array.menu_array)[i];
+	            new Hopes(mContext, feedEntryManager, rootView).construct();
+	            getActivity().setTitle(menu);
+	            break;
+            case 5: //Ministry
+            	rootView = inflater.inflate(R.layout.ministry, container, false);
+                menu = getResources().getStringArray(R.array.menu_array)[i];
+	            new Ministry(mContext, feedEntryManager, rootView).construct();
+	            getActivity().setTitle(menu);
+	            break;
+            case 6: //Recitation
+            	rootView = inflater.inflate(R.layout.recitation, container, false);
+                menu = getResources().getStringArray(R.array.menu_array)[i];
+	            new Recitation(mContext, feedEntryManager, rootView).construct();
+	            getActivity().setTitle(menu);
+	            break;
+            case 7: //Sermon
+            	rootView = inflater.inflate(R.layout.sermon, container, false);
+                menu = getResources().getStringArray(R.array.menu_array)[i];
+	            new Sermon(mContext, feedEntryManager, rootView).construct();
+	            getActivity().setTitle(menu);
+	            break;
+            case 8: //Share
+            	rootView = inflater.inflate(R.layout.share, container, false);
+                menu = getResources().getStringArray(R.array.menu_array)[i];
+	            new Share(mContext, feedEntryManager, rootView).construct();
+	            getActivity().setTitle(menu);
+	            break;
+            case 9: //Words
+            	rootView = inflater.inflate(R.layout.words, container, false);
+                menu = getResources().getStringArray(R.array.menu_array)[i];
+	            new Words(mContext, feedEntryManager, rootView).construct();
 	            getActivity().setTitle(menu);
 	            break;
             default:
@@ -318,14 +366,14 @@ class GridViewContent extends BaseAdapter {
 	private Context context;
 	
 	public int [] gv_fill = {
+			R.drawable.main_share,
 			R.drawable.main_news,
 			R.drawable.main_actions,
 			R.drawable.main_hopes,
 			R.drawable.main_ministry,
 			R.drawable.main_recitation,
-            R.drawable.main_sdhanbit,
-			R.drawable.main_sermon,
-			R.drawable.main_share,
+            R.drawable.main_sermon,
+			R.drawable.main_sdhanbit,
 			R.drawable.main_words,
 	};
 	

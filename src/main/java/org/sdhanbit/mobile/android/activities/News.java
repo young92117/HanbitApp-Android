@@ -8,6 +8,9 @@ import org.sdhanbit.mobile.android.R;
 import org.sdhanbit.mobile.android.entities.FeedEntry;
 import org.sdhanbit.mobile.android.managers.FeedEntryManager;
 
+import com.haarman.listviewanimations.itemmanipulation.ExpandableListItemAdapter;
+import com.haarman.listviewanimations.swinginadapters.prepared.AlphaInAnimationAdapter;
+
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -27,6 +30,7 @@ public class News {
 	private Context mContext;
 	private FeedEntryManager feedEntryManager;
 	private View mainView;
+	private SimpleExpandableListItemAdapter mExpandableListItemAdapter;
 	
 	public News(Context context, FeedEntryManager feedEntryManager, View mainView)
 	{
@@ -39,73 +43,45 @@ public class News {
     	Log.v(TAG, "Starting News");
    	 	ListView news_list = (ListView)(mainView.findViewById(R.id.news_list));
    	 	List<FeedEntry> entries = feedEntryManager.getFeedEntries("15");
-   	    final FeedArrayAdapter adapter = new FeedArrayAdapter(mContext,
-    	        android.R.layout.simple_list_item_1, entries);
-    	news_list.setAdapter(adapter);
-    	news_list.setOnItemClickListener(new FeedItemClickListener());
+    	
+    	mExpandableListItemAdapter = new SimpleExpandableListItemAdapter(mContext, entries);
+		AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mExpandableListItemAdapter);
+		alphaInAnimationAdapter.setAbsListView(news_list);
+		news_list.setAdapter(alphaInAnimationAdapter);
     }
 	
-	class FeedItemClickListener implements AdapterView.OnItemClickListener
-	{
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-		{
-//			View row_view = parent.getAdapter().getView(position, view, parent);
-//			((TextView)(row_view.findViewById(R.id.content)))
-//			    .setText(((FeedEntry)(parent.getAdapter().getItem(position))).getContent());
-			
-			final Dialog dialog = new Dialog(mContext);
-			dialog.setContentView(R.layout.news_content);
-			dialog.setTitle(((FeedEntry)(parent.getAdapter().getItem(position))).getTitle());
- 
-			TextView text = (TextView) dialog.findViewById(R.id.content);
-			text.setText(((FeedEntry)(parent.getAdapter().getItem(position))).getContent());
- 
-//			Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
-//			// if button is clicked, close the custom dialog
-//			dialogButton.setOnClickListener(new OnClickListener() {
-//				@Override
-//				public void onClick(View v) {
-//					dialog.dismiss();
-//				}
-//			});
- 
-			dialog.show();
-		}
-	}
-	
-	class FeedArrayAdapter extends ArrayAdapter<FeedEntry> {
+	private static class SimpleExpandableListItemAdapter extends ExpandableListItemAdapter<FeedEntry> {
 
-	    HashMap<FeedEntry, Integer> mIdMap = new HashMap<FeedEntry, Integer>();
+	    private Context mContext;
 
-	    public FeedArrayAdapter(Context context, int textViewResourceId,
-	        List<FeedEntry> objects) {
-	      super(context, textViewResourceId, objects);
-	      for (int i = 0; i < objects.size(); ++i) {
-	        mIdMap.put(objects.get(i), i);
-	      }
-	    }
-	    
-	    public View getView(int position, View convertView,	ViewGroup parent) 
-	    {
-			LayoutInflater inflater = (LayoutInflater)mContext.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-			View row=inflater.inflate(R.layout.news_row, parent, false);
-			TextView label=(TextView)row.findViewById(R.id.content);
-			label.setText((CharSequence)(getItem(position)).getContent().subSequence(0, 20)+"...");
-			TextView date=(TextView)row.findViewById(R.id.date);
-			date.setText((CharSequence)(getItem(position)).getDate());
-			return(row);
+	    /*
+	     * This will create a new ExpandableListItemAdapter, providing a custom layout resource, 
+	     * and the two child ViewGroups' id's. If you don't want this, just pass either just the
+	     * Context, or the Context and the List<T> up to super.
+	     */
+	    private SimpleExpandableListItemAdapter(Context context, List<FeedEntry> items) {
+	        super(context, R.layout.activity_expandablelistitem_card, R.id.activity_expandablelistitem_card_title, R.id.activity_expandablelistitem_card_content, items);
+	        mContext = context;         
 	    }
 
 	    @Override
-	    public long getItemId(int position) {
-	      FeedEntry item = getItem(position);
-	      return mIdMap.get(item);
+	    public View getTitleView(int position, View convertView, ViewGroup parent) {
+	        TextView tv = (TextView) convertView;
+	        if (tv == null) {
+	            tv = new TextView(mContext);
+	        }
+	        tv.setText((CharSequence)(getItem(position)).getTitle());
+	        return tv;
 	    }
 
 	    @Override
-	    public boolean hasStableIds() {
-	      return true;
+	    public View getContentView(int position, View convertView, ViewGroup parent) {
+	        TextView tv = (TextView) convertView;
+	        if (tv == null) {
+	            tv = new TextView(mContext);
+	        }
+	        tv.setText((CharSequence)(getItem(position)).getContent());
+	        return tv;
 	    }
-
 	}
 }
