@@ -70,7 +70,7 @@ public class MainActivity extends RoboActivity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     @InjectResource(R.array.menu_array)
-    private String[] mPlanetTitles;
+    private String[] mMenuTitles;
     public static Context mContext;
     public static String TAG = "MainActivity";
 //    @InjectView(R.id.textGreeting)
@@ -123,7 +123,7 @@ public class MainActivity extends RoboActivity {
       mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
       // set up the drawer's list view with items and click listener
       mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-              R.layout.drawer_list_item, mPlanetTitles));
+              R.layout.drawer_list_item, mMenuTitles));
       mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
       // enable ActionBar app icon to behave as action to toggle nav drawer
@@ -221,7 +221,7 @@ public class MainActivity extends RoboActivity {
 
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
-        setTitle(mPlanetTitles[position]);
+        setTitle(mMenuTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
@@ -366,14 +366,14 @@ class GridViewContent extends BaseAdapter {
 	private Context context;
 	
 	public int [] gv_fill = {
-			R.drawable.main_share,
+			R.drawable.main_sdhanbit,
 			R.drawable.main_news,
 			R.drawable.main_actions,
 			R.drawable.main_hopes,
 			R.drawable.main_ministry,
 			R.drawable.main_recitation,
-            R.drawable.main_sermon,
-			R.drawable.main_sdhanbit,
+			R.drawable.main_sermon,
+			R.drawable.main_share,
 			R.drawable.main_words,
 	};
 	

@@ -9,15 +9,15 @@
     <string name="app_name">Hanbit Church</string>
     <string-array name="menu_array">
         <item>Main Front</item>
-        <item>News</item><item>Works</item>
-        <item>Hope Seed</item>
-        <item>Pastor Column</item>
-        
-        <item>Memory Verse</item>
         <item>Hanbit</item>
-        <item>Sermon videos</item>
-        <item >Sermon Texts</item>
-        <item >Sermon Seeds</item>
+        <item>News</item>
+        <item>Actions</item>
+        <item>Hopes</item>
+        <item>Ministry</item>
+        <item>Recitation</item>
+        <item>Sermon</item>
+        <item>Share</item>
+        <item>Words</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
