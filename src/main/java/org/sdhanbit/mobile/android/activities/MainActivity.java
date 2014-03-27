@@ -17,6 +17,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -73,17 +74,20 @@ public class MainActivity extends RoboActivity {
     private String[] mMenuTitles;
     public static Context mContext;
     public static String TAG = "MainActivity";
-//    @InjectView(R.id.textGreeting)
-//    private TextView txtGreeting;
-//    @InjectView(R.id.btnOk)
-//    private Button btnOk;
-//    @InjectView(R.id.btnNext)
-//    private Button btnNext;
-//    @InjectView(R.id.btnTop)
-//    private Button btnTop;
-//    @InjectResource(R.string.greeting)
-//    private String greeting;
-
+    
+    private boolean isFrontMenu = false;
+    
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && mDrawerList != null && !isFrontMenu) {
+        	
+           selectItem(0);
+           isFrontMenu = true;
+           return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -267,9 +271,11 @@ public class MainActivity extends RoboActivity {
             View rootView;
             String menu;
             int imageId;
+            isFrontMenu = false;
             switch(i)
             {
             case 0: //Main front page
+            	isFrontMenu = true;
             	rootView = inflater.inflate(R.layout.front_page, container, false);
                 GridView gridView = (GridView)(rootView.findViewById(R.id.main_grid));
                 gridView.setAdapter(new GridViewContent(mContext));
@@ -278,7 +284,7 @@ public class MainActivity extends RoboActivity {
             	menu = getResources().getStringArray(R.array.menu_array)[i];
 	            getActivity().setTitle(menu);
 	            break;
-            case 1: //Church Introduction
+            case 1: //hanbit
             	rootView = inflater.inflate(R.layout.introduction, container, false);
                 menu = getResources().getStringArray(R.array.menu_array)[i];
 	            new Introduction(mContext, feedEntryManager, rootView).construct();
