@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -81,8 +82,10 @@ public class Sermon {
 	        if (wv == null) {
 	            wv = new WebView(mContext);
 	        }
-	        wv.loadData(getItem(position).getContentDisplay(), "text/html", "UTF-8");
-
+	        wv.getSettings().setJavaScriptEnabled(true);
+	        wv.loadDataWithBaseURL(null, getItem(position).getContentDisplay(), "text/html", "UTF-8",null);
+	        wv.setWebChromeClient(new WebChromeClient());
+	        
 	        return wv;
 	    }
 	}

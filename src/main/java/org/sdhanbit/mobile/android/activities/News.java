@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -76,12 +77,12 @@ public class News {
 
 	    @Override
 	    public View getContentView(int position, View convertView, ViewGroup parent) {
-	        TextView tv = (TextView) convertView;
-	        if (tv == null) {
-	            tv = new TextView(mContext);
+	        WebView wv = (WebView) convertView;
+	        if (wv == null) {
+	            wv = new WebView(mContext);
 	        }
-	        tv.setText((CharSequence)(getItem(position)).getContent());
-	        return tv;
+	        wv.loadDataWithBaseURL(null, getItem(position).getContent(), "text/html", "UTF-8",null);
+	        return wv;
 	    }
 	}
 }
