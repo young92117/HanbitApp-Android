@@ -18,6 +18,8 @@ public class FeedEntry {
     @DatabaseField
     private String content;
     @DatabaseField
+    private String content_display;
+    @DatabaseField
     private String type;
     @DatabaseField
     private Boolean isViewed;
@@ -28,11 +30,12 @@ public class FeedEntry {
         // ORMLite needs a no-arg constructor
     }
 
-    public FeedEntry(String date, String title, String content, String type) {
+    public FeedEntry(String date, String title, String content, String content_display, String type) {
     	this._id = (date+type).hashCode();
     	this.date = date;
         this.title = title;
         this.content = content;
+        this.content_display = content_display;
         this.type = type;
         this.setIsViewed(false);
         this.setIsProtected(false);
@@ -60,6 +63,14 @@ public class FeedEntry {
 
     public void setContent(String content) {
         this.content = content;
+    }
+    
+    public String getContentDisplay() {
+        return content_display;
+    }
+
+    public void setContentDisplay(String content_display) {
+        this.content_display = content_display;
     }
 
     public String getType() {

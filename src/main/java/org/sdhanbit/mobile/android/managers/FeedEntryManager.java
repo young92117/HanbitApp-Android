@@ -27,12 +27,12 @@ public class FeedEntryManager extends BaseJsonFeedDatabaseManager {
 
     private static final String TAG = "FeedEntryManager";
 
-    public void addJsonFeed(String date, String title, String content, String type) 
+    public void addJsonFeed(String date, String title, String content, String content_display, String type) 
     {
         try {
             // get our Dao
             Dao<FeedEntry, Integer> feedEntryDao = getFeedEntryDao();
-            FeedEntry feedEntry = new FeedEntry(date, title, content, type);
+            FeedEntry feedEntry = new FeedEntry(date, title, content, content_display, type);
             feedEntryDao.create(feedEntry);
             Log.d(TAG, "added " + date+" "+type);
         } catch (SQLException exception) {

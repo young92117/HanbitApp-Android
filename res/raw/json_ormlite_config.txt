@@ -19,6 +19,9 @@ fieldName=title
 fieldName=content
 # --field-end--
 # --field-start--
+fieldName=content_display
+# --field-end--
+# --field-start--
 fieldName=type
 # --field-end--
 # --field-start--

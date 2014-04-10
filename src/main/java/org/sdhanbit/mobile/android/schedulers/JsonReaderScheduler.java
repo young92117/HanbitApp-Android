@@ -100,6 +100,7 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
 			String date = "";
 			String title = "";
 			String content = "";
+			String content_display = "";
 			try {
 				JSONObject json = Util.parseJson(response);
 				feed_array = json.getJSONArray("posts");
@@ -110,11 +111,13 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
 						date = db_date_fmt.format(feed_date_fmt.parse(feed_array.getJSONObject(i).getString("date")));
 						title = feed_array.getJSONObject(i).getString("title");
 						content = feed_array.getJSONObject(i).getString("content");
+						content_display = feed_array.getJSONObject(i).getString("content_display");
 						Log.v(TAG,"Date: "+date+"\n"+
 								  "title: "+title+"\n"+
 								  "content: "+content+"\n"+
+								  "content_display: "+content_display+"\n"+
 								  "type: "+type+"\n\n");
-						feedEntryManager.addJsonFeed(date, title, content, type);
+						feedEntryManager.addJsonFeed(date, title, content, content_display, type);
 					}catch(Exception e)
 					{
 						Log.e(TAG,e.getMessage());

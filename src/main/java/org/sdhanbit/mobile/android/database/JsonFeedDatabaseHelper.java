@@ -52,19 +52,19 @@ public class JsonFeedDatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private void insertTestData() {
         // here we try inserting data in the on-create as a test
-        try {
-            Dao<FeedEntry, Integer> feedEntryDao = getFeedEntryDao();
-            FeedEntry entry1 = new FeedEntry("20110201135959", "title1", "http://www.sdhanbit.org/", "40");
-            feedEntryDao.create(entry1);
-            Log.i(TAG, "created new entries in onCreate: " + entry1.getDate());
-            FeedEntry entry2 = new FeedEntry("20130201135959", "title2", "http://www.sdhanbit.org/", "40");
-            feedEntryDao.create(entry2);
-            Log.i(TAG, "created new entries in onCreate: " + entry2.getDate());
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            Log.e(TAG, "Can't insert the sample data", e);
-        }
+//        try {
+//            Dao<FeedEntry, Integer> feedEntryDao = getFeedEntryDao();
+//            FeedEntry entry1 = new FeedEntry("20110201135959", "title1", "http://www.sdhanbit.org/", "40");
+//            feedEntryDao.create(entry1);
+//            Log.i(TAG, "created new entries in onCreate: " + entry1.getDate());
+//            FeedEntry entry2 = new FeedEntry("20130201135959", "title2", "http://www.sdhanbit.org/", "40");
+//            feedEntryDao.create(entry2);
+//            Log.i(TAG, "created new entries in onCreate: " + entry2.getDate());
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            Log.e(TAG, "Can't insert the sample data", e);
+//        }
     }
 
     /**
