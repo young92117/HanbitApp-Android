@@ -15,15 +15,19 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,12 +37,17 @@ public class Sermon {
 	private FeedEntryManager feedEntryManager;
 	private View mainView;
 	private SimpleExpandableListItemAdapter mExpandableListItemAdapter;
+	private static DisplayMetrics metrics;
 	
 	public Sermon(Context context, FeedEntryManager feedEntryManager, View mainView)
 	{
 		mContext = context;
 		this.feedEntryManager = feedEntryManager;
 		this.mainView = mainView;
+		metrics = new DisplayMetrics();
+		WindowManager windowManager = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(metrics);
 	}
 	public void construct()
     {
@@ -71,6 +80,7 @@ public class Sermon {
 	        TextView tv = (TextView) convertView;
 	        if (tv == null) {
 	            tv = new TextView(mContext);
+	            tv.setTextColor(Color.BLACK);
 	        }
 	        tv.setText((CharSequence)(getItem(position)).getTitle());
 	        return tv;
@@ -78,15 +88,21 @@ public class Sermon {
 
 	    @Override
 	    public View getContentView(int position, View convertView, ViewGroup parent) {
-	        WebView wv = (WebView) convertView;
-	        if (wv == null) {
-	            wv = new WebView(mContext);
-	        }
-	        wv.getSettings().setJavaScriptEnabled(true);
-	        wv.loadDataWithBaseURL(null, getItem(position).getContentDisplay(), "text/html", "UTF-8",null);
-	        wv.setWebChromeClient(new WebChromeClient());
+	    	RelativeLayout rl = (RelativeLayout) convertView;
 	        
-	        return wv;
+		     if (rl == null) {
+		         rl = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.news_content, null);
+		         rl.setMinimumHeight(metrics.heightPixels);
+		         rl.setMinimumWidth(metrics.widthPixels);
+		         WebView wv = (WebView)rl.findViewById(R.id.news_webview);
+		         wv.setVerticalScrollBarEnabled(true);
+		         wv.setHorizontalScrollBarEnabled(true);
+		         wv.getSettings().setJavaScriptEnabled(true);
+			     wv.loadDataWithBaseURL(null, getItem(position).getContentDisplay(), "text/html", "UTF-8",null);
+			     wv.setWebChromeClient(new WebChromeClient());
+		     }
+		       
+		    return rl;
 	    }
 	}
 }
