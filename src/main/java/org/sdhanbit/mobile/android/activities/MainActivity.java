@@ -59,8 +59,8 @@ public class MainActivity extends RoboActivity {
 //    private RssReaderScheduler mRssReaderScheduler;
 	@Inject
     private JsonReaderScheduler mJsonReaderScheduler;
-	@Inject
-    public FeedEntryManager feedEntryManager;
+	
+	public static FeedEntryManager feedEntryManager;
 
     @InjectView(R.id.top)
     private DrawerLayout mDrawerLayout;
@@ -75,7 +75,7 @@ public class MainActivity extends RoboActivity {
     public static Context mContext;
     public static String TAG = "MainActivity";
     
-    private boolean isFrontMenu = false;
+    private static boolean isFrontMenu = false;
     
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -94,6 +94,9 @@ public class MainActivity extends RoboActivity {
 
         setContentView(R.layout.main);
         mContext = this;
+        
+        if(feedEntryManager == null)
+        	feedEntryManager = new FeedEntryManager();
         
 //        txtGreeting.setText(greeting);
 //
@@ -254,7 +257,7 @@ public class MainActivity extends RoboActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    public class PlanetFragment extends Fragment {
+    public static class PlanetFragment extends Fragment {
         public static final String ARG_MENU_NUMBER = "menu_number";
 
         public PlanetFragment() {
