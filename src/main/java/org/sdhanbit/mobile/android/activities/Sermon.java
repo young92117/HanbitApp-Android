@@ -91,10 +91,10 @@ public class Sermon {
 	    	RelativeLayout rl = (RelativeLayout) convertView;
 	        
 		     if (rl == null) {
-		         rl = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.news_content, null);
+		         rl = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.sermon_content, null);
 		         rl.setMinimumHeight(metrics.heightPixels);
 		         rl.setMinimumWidth(metrics.widthPixels);
-		         WebView wv = (WebView)rl.findViewById(R.id.news_webview);
+		         WebView wv = (WebView)rl.findViewById(R.id.sermon_webview);
 		         wv.setVerticalScrollBarEnabled(true);
 		         wv.setHorizontalScrollBarEnabled(true);
 		         wv.getSettings().setJavaScriptEnabled(true);

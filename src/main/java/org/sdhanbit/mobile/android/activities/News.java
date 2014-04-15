@@ -93,10 +93,9 @@ public class News {
 		        
 		     if (sv == null) {
 		         sv = (ScrollView)LayoutInflater.from(mContext).inflate(R.layout.news_content, null);
-		         RelativeLayout rl = (RelativeLayout)sv.findViewById(R.id.news_row);
-		         rl.setMinimumHeight(metrics.heightPixels);
-		         rl.setMinimumWidth(metrics.widthPixels);
-		         WebView wv = (WebView)rl.findViewById(R.id.news_webview);
+		         sv.setMinimumHeight(metrics.heightPixels);
+		         sv.setMinimumWidth(metrics.widthPixels);
+		         WebView wv = (WebView)sv.findViewById(R.id.news_webview);
 		         wv.loadDataWithBaseURL(null, getItem(position).getContent(), "text/html", "UTF-8",null);
 		     }
 		       

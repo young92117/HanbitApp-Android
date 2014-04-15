@@ -254,9 +254,6 @@ public class MainActivity extends RoboActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /**
-     * Fragment that appears in the "content_frame", shows a planet
-     */
     public class PlanetFragment extends Fragment {
         public static final String ARG_MENU_NUMBER = "menu_number";
 
