@@ -17,13 +17,15 @@
     			android:layout_width="fill_parent"
 				android:layout_height="fill_parent"
                 android:background="@drawable/main_background">
-    <ImageView  android:layout_width="match_parent"
+ <!--
+ <ImageView  android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
                 android:layout_marginRight="70dp"
                 android:layout_marginTop="0dp"
                 android:layout_alignParentTop="true"
                 android:src="@drawable/hanbit_logo_160" />
+    -->
 	<GridView 		android:id="@+id/main_grid"
 		    		android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -35,10 +37,12 @@
 				    android:gravity="center"
 				    android:stretchMode="columnWidth"
 				    />
-    <ImageView  android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:layout_marginRight="70dp"
-                android:layout_alignParentBottom="true"
-                android:src="@drawable/hanbit_address" />
+    <!--
+   <ImageView  android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="70dp"
+               android:layout_marginRight="70dp"
+               android:layout_alignParentBottom="true"
+               android:src="@drawable/hanbit_address" />
+                   -->
 </RelativeLayout>

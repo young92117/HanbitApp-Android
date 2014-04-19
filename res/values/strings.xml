@@ -7,17 +7,41 @@
     <string name="rssreader_service_stopped">RSS Reader Stopped</string>
 
     <string name="app_name">Hanbit Church</string>
+    <!--
     <string-array name="menu_array">
         <item>Main Front</item>
-        <item>Hanbit</item>
-        <item>News</item>
-        <item>Actions</item>
-        <item>Hopes</item>
-        <item>Ministry</item>
-        <item>Recitation</item>
+        <item>Pastor</item>
+        <item>People</item>
+        <item>Introduction</item>
+        <item>Map</item>
+        <item>Worship</item>
         <item>Sermon</item>
         <item>Share</item>
+        <item>Recitation</item>
+        <item>Ministry</item>
         <item>Words</item>
+        <item>Hopes</item>
+        <item>News</item>
+        <item>Actions</item>
+        <item>School</item>
+    </string-array>
+    -->
+    <string-array name="menu_array">
+        <item>Home</item>
+        <item>담임목사소개</item>
+        <item>섬기는 이들</item>
+        <item>인사말 </item>
+        <item>오시는 길</item>
+        <item>예배안내</item>
+        <item>설교동영상</item>
+        <item>설교나눔</item>
+        <item>성경암송</item>
+        <item>목회컬럼</item>
+        <item>말씀의 씨앗</item>
+        <item>소망의 씨앗</item>
+        <item>교회소식</item>
+        <item>금주사역</item>
+        <item>문화학교</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
