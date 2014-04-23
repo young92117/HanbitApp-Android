@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.SearchManager;
@@ -16,7 +17,9 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -442,8 +445,22 @@ class GridViewContent extends BaseAdapter {
  
 		ImageView imageView = new ImageView(context);
         imageView.setImageResource(gv_fill[position]);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        imageView.setLayoutParams(new GridView.LayoutParams(350, 200));
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+//        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+//        int width = metrics.widthPixels;
+//        int height = metrics.heightPixels;
+        Activity a = (Activity) context;
+//        a.getActionBar().getHeight()
+        int width = a.getWindow().getDecorView().getWidth();
+        int height = a.getWindow().getDecorView().getHeight();
+        int resourceId = a.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        int statusbarheight = a.getResources().getDimensionPixelSize(resourceId);
+
+        imageView.setLayoutParams(new GridView.LayoutParams(width/3-1, (height-a.getActionBar().getHeight()-statusbarheight-60)/3-1));
+
+        Log.i("FrontPage", "getView width, height (" + width + ", " + height + ")" + a.getActionBar().getHeight() + "," + statusbarheight);
+
         return imageView;
     }
 	
