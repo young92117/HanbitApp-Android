@@ -13,17 +13,22 @@ import com.haarman.listviewanimations.swinginadapters.prepared.AlphaInAnimationA
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.graphics.Bitmap;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -36,9 +41,10 @@ public class News {
 	private static String TAG = "News";
 	private Context mContext;
 	private FeedEntryManager feedEntryManager;
-	private View mainView;
-	private SimpleExpandableListItemAdapter mExpandableListItemAdapter;
+	private static View mainView;
+	private static SimpleExpandableListItemAdapter mExpandableListItemAdapter;
 	private static DisplayMetrics metrics;
+	private static ListView news_list;
 	
 	public News(Context context, FeedEntryManager feedEntryManager, View mainView)
 	{
@@ -53,13 +59,20 @@ public class News {
 	public void constructNews()
     {
     	Log.v(TAG, "Starting News");
-   	 	ListView news_list = (ListView)(mainView.findViewById(R.id.news_list));
-   	 	List<FeedEntry> entries = feedEntryManager.getFeedEntries("15");
+   	 	news_list = (ListView)(mainView.findViewById(R.id.news_list));
+   	 	try
+   	 	{
+   	 		List<FeedEntry> entries = feedEntryManager.getFeedEntries("15");
+	   	 	mExpandableListItemAdapter = new SimpleExpandableListItemAdapter(mContext, entries);
+			AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mExpandableListItemAdapter);
+			alphaInAnimationAdapter.setAbsListView(news_list);
+			news_list.setAdapter(alphaInAnimationAdapter);
+   	 	}catch(IllegalArgumentException e)
+   	 	{
+   	 		Toast.makeText(mContext, "Database is not ready yet. Please try again", Toast.LENGTH_LONG).show();
+   	 	}
     	
-    	mExpandableListItemAdapter = new SimpleExpandableListItemAdapter(mContext, entries);
-		AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mExpandableListItemAdapter);
-		alphaInAnimationAdapter.setAbsListView(news_list);
-		news_list.setAdapter(alphaInAnimationAdapter);
+    	
     }
 	
 	private static class SimpleExpandableListItemAdapter extends ExpandableListItemAdapter<FeedEntry> {
@@ -88,18 +101,31 @@ public class News {
 	    }
 
 	    @Override
-	    public View getContentView(int position, View convertView, ViewGroup parent) {
-	    	 ScrollView sv = (ScrollView) convertView;
+	    public View getContentView(int position, View convertView, final ViewGroup parent) {
+	    	
+	    	 RelativeLayout rl = (RelativeLayout) convertView;
 		        
-		     if (sv == null) {
-		         sv = (ScrollView)LayoutInflater.from(mContext).inflate(R.layout.news_content, null);
-		         sv.setMinimumHeight(metrics.heightPixels);
-		         sv.setMinimumWidth(metrics.widthPixels);
-		         WebView wv = (WebView)sv.findViewById(R.id.news_webview);
-		         wv.loadDataWithBaseURL(null, getItem(position).getContent(), "text/html", "UTF-8",null);
+		     if (rl == null) {
+		    	final RelativeLayout rl1 = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.news_content, null);
+		        rl1.setMinimumWidth(metrics.widthPixels);
+		        rl1.setMinimumHeight(metrics.heightPixels/2);
+		        final WebView wv = (WebView)rl1.findViewById(R.id.news_webview);
+		        wv.loadDataWithBaseURL(null, getItem(position).getContent(), "text/html", "UTF-8",null);
+		        wv.setVerticalScrollBarEnabled(false);
+       		    wv.setHorizontalScrollBarEnabled(true);
+       		    wv.setOnTouchListener(new View.OnTouchListener() {
+					
+					@Override
+					public boolean onTouch(View v, MotionEvent event) {
+						rl1.setMinimumHeight(wv.getHeight());
+						mExpandableListItemAdapter.notifyDataSetChanged();
+						return false;
+					}
+				});
+  	            return rl1;
 		     }
-		       
-		     return sv;
+		     
+	    	 return rl;
 	    }
 	}
 }

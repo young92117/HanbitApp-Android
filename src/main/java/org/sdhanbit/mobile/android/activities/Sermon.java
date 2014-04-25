@@ -1,6 +1,9 @@
 package org.sdhanbit.mobile.android.activities;
 
 import java.util.ArrayList;
+
+import android.app.Activity;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,10 +18,13 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -53,12 +59,18 @@ public class Sermon {
     {
     	Log.v(TAG, "Starting Sermon");
    	 	ListView news_list = (ListView)(mainView.findViewById(R.id.sermon_list));
-   	 	List<FeedEntry> entries = feedEntryManager.getFeedEntries("30");
-    	
-    	mExpandableListItemAdapter = new SimpleExpandableListItemAdapter(mContext, entries);
-		AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mExpandableListItemAdapter);
-		alphaInAnimationAdapter.setAbsListView(news_list);
-		news_list.setAdapter(alphaInAnimationAdapter);
+   	 	
+   	 	try
+   	 	{
+   	 		List<FeedEntry> entries = feedEntryManager.getFeedEntries("30");
+   	 		mExpandableListItemAdapter = new SimpleExpandableListItemAdapter(mContext, entries);
+			AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mExpandableListItemAdapter);
+			alphaInAnimationAdapter.setAbsListView(news_list);
+			news_list.setAdapter(alphaInAnimationAdapter);
+    	}catch(IllegalArgumentException e)
+	 	{
+	 		Toast.makeText(mContext, "Database is not ready yet. Please try again", Toast.LENGTH_LONG).show();
+	 	}
     }
 	
 	private static class SimpleExpandableListItemAdapter extends ExpandableListItemAdapter<FeedEntry> {
@@ -87,7 +99,7 @@ public class Sermon {
 	    }
 
 	    @Override
-	    public View getContentView(int position, View convertView, ViewGroup parent) {
+	    public View getContentView(final int position, View convertView, ViewGroup parent) {
 	    	RelativeLayout rl = (RelativeLayout) convertView;
 	        
 		     if (rl == null) {
@@ -99,7 +111,18 @@ public class Sermon {
 		         wv.setHorizontalScrollBarEnabled(true);
 		         wv.getSettings().setJavaScriptEnabled(true);
 			     wv.loadDataWithBaseURL(null, getItem(position).getContentDisplay(), "text/html", "UTF-8",null);
-			     wv.setWebChromeClient(new WebChromeClient());
+			     wv.setOnTouchListener(new View.OnTouchListener() {
+						
+						@Override
+						public boolean onTouch(View v, MotionEvent event) {
+							if(event.getAction() == MotionEvent.ACTION_UP)
+							{
+								((Activity)(mContext)).startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getItem(position).getContent())));
+								Log.v(TAG,getItem(position).getContent());
+							}
+							return true;
+						}
+				 });
 		     }
 		       
 		    return rl;

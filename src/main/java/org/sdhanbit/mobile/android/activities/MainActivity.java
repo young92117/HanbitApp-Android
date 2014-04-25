@@ -100,34 +100,9 @@ public class MainActivity extends RoboActivity {
         
         if(feedEntryManager == null)
         	feedEntryManager = new FeedEntryManager();
+        mJsonReaderScheduler.setAlarm(this);
         
-//        txtGreeting.setText(greeting);
-//
-//        btnNext.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(final View view) {
-//                controller.OnNextButtonClicked(view.getContext());
-//            }
-//        });
-//
-//        btnOk.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(final View view) {
-//                controller.OnOkButtonClicked(view.getContext());
-//            }
-//        });
-//
-//        btnTop.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(final View view) {
-//                controller.OnTopButtonClicked(view.getContext());
-//            }
-//        });
-
         mTitle = mDrawerTitle = getTitle();
-//      mPlanetTitles = getResources().getStringArray(R.array.planets_array);
-//      mDrawerLayout = (DrawerLayout) findViewById(R.id.top);
-//      mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
       // set a custom shadow that overlays the main content when the drawer opens
       mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
@@ -164,9 +139,6 @@ public class MainActivity extends RoboActivity {
       if (savedInstanceState == null) {
           selectItem(0);
       }
-
-//      mRssReaderScheduler.setAlarm(this);
-      mJsonReaderScheduler.setAlarm(this);
     }
     
 
