@@ -235,7 +235,7 @@ public class MainActivity extends RoboActivity {
     public static class PlanetFragment extends Fragment {
         public static final String ARG_MENU_NUMBER = "menu_number";
 
-        public static int tmap[] = {3,12,13,11,9,8,6,7,10}; //by jin
+        public static int tmap[] = {3,11,12,10,8,7,5,6,9}; //by jin
 
         public PlanetFragment() {
             // Empty constructor required for fragment subclasses
@@ -273,73 +273,67 @@ public class MainActivity extends RoboActivity {
                     new People(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 3: //introduction
-                    rootView = inflater.inflate(R.layout.introduction, container, false);
-                    menu = getResources().getStringArray(R.array.menu_array)[i];
-                    new Introduction(mContext, feedEntryManager, rootView).construct();
-                    getActivity().setTitle(menu);
-                    break;
-            case 4: //map
+            case 3: //map
                     rootView = inflater.inflate(R.layout.map, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Map(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 5: //worship
+            case 4: //worship
                     rootView = inflater.inflate(R.layout.worship, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Worship(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 6: //Sermon
+            case 5: //Sermon
                     rootView = inflater.inflate(R.layout.sermon, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Sermon(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 7: //Share
+            case 6: //Share
                     rootView = inflater.inflate(R.layout.share, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Share(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 8: //Recitation
+            case 7: //Recitation
                     rootView = inflater.inflate(R.layout.recitation, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Recitation(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 9: //Ministry
+            case 8: //Ministry
                     rootView = inflater.inflate(R.layout.ministry, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Ministry(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 10: //Words
+            case 9: //Words
                     rootView = inflater.inflate(R.layout.words, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Words(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 11: //Hopes
+            case 10: //Hopes
                     rootView = inflater.inflate(R.layout.hopes, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Hopes(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 12:  // News
+            case 11:  // News
                     rootView = inflater.inflate(R.layout.news, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new News(mContext, feedEntryManager, rootView).constructNews();
                     getActivity().setTitle(menu);
                     break;
-            case 13: //Actions
+            case 12: //Actions
                     rootView = inflater.inflate(R.layout.actions, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Actions(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 14: //School
+            case 13: //School
                     rootView = inflater.inflate(R.layout.school, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new School(mContext, feedEntryManager, rootView).construct();
