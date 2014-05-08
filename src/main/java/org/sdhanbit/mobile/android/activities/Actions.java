@@ -17,7 +17,7 @@ import android.webkit.WebView;
 import com.haarman.listviewanimations.swinginadapters.prepared.AlphaInAnimationAdapter;
 import roboguice.activity.event.OnCreateEvent;
 
-public class Actions extends Activity {
+public class Actions {//} extends Activity {
 
 	private static String TAG = "Actions";
 	private Context mContext;
@@ -37,14 +37,15 @@ public class Actions extends Activity {
 	public void construct()
     {
     	Log.v(TAG, "Starting Actions");
-
-
+        WebView browser = (WebView) (mainView.findViewById(R.id.WebViewAct));
+        //setContentView(R.layout.actions);
+        browser.loadUrl("https://docs.google.com/spreadsheet/ccc?key=0Ahw6lNCJGfZ6dDNJcm9IT0lqVWVZNU5Zc3B0ZklfSGc&usp=sharing");
     }
 
-    public void onCreate(Bundle savedInstanceState) {
-        WebView browser = (WebView) findViewById(R.id.WebViewAct);
-        setContentView(R.layout.actions);
-        browser.loadUrl("http://www.google.com");
-    }
+    //public void onCreate(Bundle savedInstanceState) {
+        //WebView browser = (WebView) findViewById(R.id.WebViewAct);
+        //setContentView(R.layout.actions);
+        //browser.loadUrl("http://www.google.com");
+    //}
 
 }
