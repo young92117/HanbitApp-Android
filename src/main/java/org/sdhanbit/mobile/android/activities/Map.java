@@ -3,6 +3,9 @@ package org.sdhanbit.mobile.android.activities;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+import org.sdhanbit.mobile.android.R;
 import org.sdhanbit.mobile.android.managers.FeedEntryManager;
 
 public class Map {

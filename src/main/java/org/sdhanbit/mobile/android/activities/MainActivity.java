@@ -413,19 +413,12 @@ class GridViewContent extends BaseAdapter {
         imageView.setImageResource(gv_fill[position]);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-//        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-//        int width = metrics.widthPixels;
-//        int height = metrics.heightPixels;
-        Activity a = (Activity) context;
-//        a.getActionBar().getHeight()
-        int width = a.getWindow().getDecorView().getWidth();
-        int height = a.getWindow().getDecorView().getHeight();
-        int resourceId = a.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        int statusbarheight = a.getResources().getDimensionPixelSize(resourceId);
+        int width = arg2.getWidth();
+        int height = arg2.getBottom();
+        imageView.setLayoutParams(new GridView.LayoutParams(width/3-1, height/3-1));
 
-        imageView.setLayoutParams(new GridView.LayoutParams(width/3-1, (height-a.getActionBar().getHeight()-statusbarheight-60)/3-1));
-
-        Log.i("FrontPage", "getView width, height (" + width + ", " + height + ")" + a.getActionBar().getHeight() + "," + statusbarheight);
+        Log.i("FrontPage", "getView width, height (" + width + ", " + height + ")");
+        Log.i("FrontPage", "getView height2,height3 =" + arg2.getMeasuredHeight() + ":" +arg2.getPaddingBottom());
 
         return imageView;
     }

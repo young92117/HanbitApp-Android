@@ -31,7 +31,6 @@
 				    android:layout_height="match_parent"
 				    android:layout_alignParentTop="true"
 				    android:numColumns="3"
-				    android:paddingTop="5dp"
 				    android:horizontalSpacing="1dp"
 				    android:verticalSpacing="1dp"
 				    android:gravity="center"
