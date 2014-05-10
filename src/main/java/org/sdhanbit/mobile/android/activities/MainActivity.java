@@ -418,7 +418,6 @@ class GridViewContent extends BaseAdapter {
         imageView.setLayoutParams(new GridView.LayoutParams(width/3-1, height/3-1));
 
         Log.i("FrontPage", "getView width, height (" + width + ", " + height + ")");
-        Log.i("FrontPage", "getView height2,height3 =" + arg2.getMeasuredHeight() + ":" +arg2.getPaddingBottom());
 
         return imageView;
     }
