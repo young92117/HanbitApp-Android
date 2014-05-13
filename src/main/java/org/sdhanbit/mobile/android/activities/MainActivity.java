@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -110,6 +111,9 @@ public class MainActivity extends RoboActivity {
       mDrawerList.setAdapter(new ArrayAdapter<String>(this,
               R.layout.drawer_list_item, mMenuTitles));
       mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+      mDrawerList.setBackground(getResources().getDrawable(R.drawable.drawerbackground));
+      mDrawerList.setDividerHeight(0);
+//      mDrawerList.setDivider(new ColorDrawable(Color.parseColor("#FF404040")));
 
       // enable ActionBar app icon to behave as action to toggle nav drawer
       getActionBar().setDisplayHomeAsUpEnabled(true);
