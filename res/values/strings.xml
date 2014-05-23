@@ -41,6 +41,7 @@
         <item>교회소식</item>
         <item>금주사역</item>
         <item>문화학교</item>
+        <item>Test</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>

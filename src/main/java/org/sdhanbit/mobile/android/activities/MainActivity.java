@@ -107,6 +107,11 @@ public class MainActivity extends RoboActivity {
 
       // set a custom shadow that overlays the main content when the drawer opens
       mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+
+//      TextView tv = new TextView( this ); //jin
+//      tv.setText( "Header" );
+//      mDrawerList.addHeaderView( tv );
+
       // set up the drawer's list view with items and click listener
       mDrawerList.setAdapter(new ArrayAdapter<String>(this,
               R.layout.drawer_list_item, mMenuTitles));
@@ -207,6 +212,11 @@ public class MainActivity extends RoboActivity {
 
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
+
+        //TextView tv = new TextView( this ); //jin
+        //tv.setText( "Header" );
+        //mDrawerList.addHeaderView( tv );
+
         setTitle(mMenuTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
@@ -253,6 +263,7 @@ public class MainActivity extends RoboActivity {
             String menu;
             int imageId;
             isFrontMenu = false;
+
             switch(i)
             {
             case 0: //Main front page
@@ -341,6 +352,15 @@ public class MainActivity extends RoboActivity {
                     rootView = inflater.inflate(R.layout.school, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new School(mContext, feedEntryManager, rootView).construct();
+                    getActivity().setTitle(menu);
+                    break;
+            case 14: //test
+                    rootView = inflater.inflate(R.layout.front_page, container, false);
+                    gridView = (GridView)(rootView.findViewById(R.id.main_grid));
+                    gridView.setAdapter(new GridViewContent(mContext));
+                    gridView.setOnItemClickListener(gridItemClickListener);
+
+                    menu = getResources().getStringArray(R.array.menu_array)[i];
                     getActivity().setTitle(menu);
                     break;
             default:
