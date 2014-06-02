@@ -100,7 +100,10 @@ public class MainActivity extends RoboActivity {
         mContext = this;
         
         if(feedEntryManager == null)
+        {
         	feedEntryManager = new FeedEntryManager();
+        	feedEntryManager.setContext(this);
+        }
         mJsonReaderScheduler.setAlarm(this);
         
         mTitle = mDrawerTitle = getTitle();

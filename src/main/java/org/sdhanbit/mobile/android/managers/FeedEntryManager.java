@@ -1,5 +1,6 @@
 package org.sdhanbit.mobile.android.managers;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.code.rome.android.repackaged.com.sun.syndication.feed.synd.SyndCategory;
@@ -26,6 +27,11 @@ import java.util.List;
 public class FeedEntryManager extends BaseJsonFeedDatabaseManager {
 
     private static final String TAG = "FeedEntryManager";
+    
+    public void setContext(Context context)
+    {
+    	super.setContext(context);
+    }
 
     public void addJsonFeed(String date, String title, String content, String content_display, String type) 
     {

@@ -1,5 +1,7 @@
 package org.sdhanbit.mobile.android.managers;
 
+import android.content.Context;
+
 import com.google.inject.Inject;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -20,6 +22,8 @@ public abstract class BaseJsonFeedDatabaseManager {
 
     @Inject
     private MainApplication application;
+    
+    private Context mContext;
 
     private JsonFeedDatabaseHelper jsonFeedDatabaseHelper;
 
@@ -27,9 +31,14 @@ public abstract class BaseJsonFeedDatabaseManager {
         return getHelper().getFeedEntryDao();
     }
 
+    public void setContext(Context context)
+    {
+    	mContext = context;
+    }
+    
     private JsonFeedDatabaseHelper getHelper() {
         if (jsonFeedDatabaseHelper == null) {
-            jsonFeedDatabaseHelper = OpenHelperManager.getHelper(application, JsonFeedDatabaseHelper.class);
+            jsonFeedDatabaseHelper = OpenHelperManager.getHelper(mContext, JsonFeedDatabaseHelper.class);
         }
 
         return jsonFeedDatabaseHelper;
