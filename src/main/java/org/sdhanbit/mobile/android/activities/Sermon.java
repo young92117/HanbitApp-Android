@@ -1,9 +1,11 @@
 package org.sdhanbit.mobile.android.activities;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.app.Activity;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,6 +37,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -76,45 +79,6 @@ public class Sermon {
 	 	}
     }
 	
-	private class MyAdapter extends ArrayAdapter<FeedEntry> {
-
-		private Context mContext;
-		private List<FeedEntry> array;
-
-		public MyAdapter(Context context, List<FeedEntry> array) {
-			super(array);
-			mContext = context;
-			this.array = array;
-		}
-
-//		public long getItemId(int position) {
-//			return getItem(position).hashCode();
-//		}
-        
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			RelativeLayout rl = (RelativeLayout) convertView;
-	        
-		     if (rl == null) {
-		         final RelativeLayout rl1 = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.sermon_content, null);
-		         rl1.setMinimumWidth(metrics.widthPixels);
-		         final WebView wv = (WebView)rl1.findViewById(R.id.sermon_webview);
-//		         wv.setVerticalScrollBarEnabled(true);
-//		         wv.setHorizontalScrollBarEnabled(true);
-		         wv.setInitialScale(50);
-		         WebSettings settings = wv.getSettings();
-		         settings.setJavaScriptEnabled(true);
-//		         settings.setSaveFormData(true);
-//		         settings.setJavaScriptCanOpenWindowsAutomatically(true);
-//		         settings.setLoadsImagesAutomatically(true);
-		         wv.loadDataWithBaseURL(null, getItem(position).getContentDisplay(), "text/html", "UTF-8",null);
-			     return rl1;
-		     }
-		       
-		    return rl;
-		}
-	}
-	
 	private static class SimpleExpandableListItemAdapter extends ExpandableListItemAdapter<FeedEntry> {
 
 	    private Context mContext;
@@ -130,35 +94,23 @@ public class Sermon {
 	    }
 
 	    @Override
-	    public View getTitleView(int position, View convertView, ViewGroup parent) {
-	        TextView tv = (TextView) convertView;
-	        if (tv == null) {
-	            tv = new TextView(mContext);
-	            tv.setTextColor(Color.BLACK);
-	        }
-	        tv.setText((CharSequence)(getItem(position)).getTitle());
-	        return tv;
-	    }
-
-	    @Override
-	    public View getContentView(final int position, View convertView, ViewGroup parent) {
+	    public View getTitleView(final int position, View convertView, ViewGroup parent) {
 	    	RelativeLayout rl = (RelativeLayout) convertView;
 	        
 		     if (rl == null) {
 		         final RelativeLayout rl1 = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.sermon_content, null);
-		         rl1.setMinimumHeight(metrics.heightPixels/2);
 		         rl1.setMinimumWidth(metrics.widthPixels);
 		         final WebView wv = (WebView)rl1.findViewById(R.id.sermon_webview);
 //		         wv.setVerticalScrollBarEnabled(true);
 //		         wv.setHorizontalScrollBarEnabled(true);
-		         wv.setInitialScale(200);
+		         wv.setInitialScale(50);
 		         WebSettings settings = wv.getSettings();
 //		         settings.setPluginState(PluginState.ON);
-		         settings.setUseWideViewPort(true);
+//		         settings.setUseWideViewPort(true);
 		         settings.setJavaScriptEnabled(true);
 //		         settings.setSaveFormData(true);
 //		         settings.setJavaScriptCanOpenWindowsAutomatically(true);
-		         settings.setLoadsImagesAutomatically(true);
+//		         settings.setLoadsImagesAutomatically(true);
 		         wv.loadDataWithBaseURL(null, getItem(position).getContentDisplay(), "text/html", "UTF-8",null);
 		         wv.setOnTouchListener(new View.OnTouchListener() {
 
@@ -167,12 +119,40 @@ public class Sermon {
 							if(event.getAction() == MotionEvent.ACTION_UP)
 							{
 								((Activity)(mContext)).startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getItem(position).getContent())));
-								Log.v(TAG,getItem(position).getContent());
 							}
 							return true;
 						}
 				 });
+		         TextView title_tv = (TextView)rl1.findViewById(R.id.sermon_textview);
+		         title_tv.setText(getItem(position).getTitle());
+		         title_tv.setTextColor(Color.BLACK);
+		         title_tv.setMaxWidth(metrics.widthPixels/2);
+		         
+		         SimpleDateFormat db_date_fmt = new SimpleDateFormat("yyyyMMddHHmmss");
+		         TextView date_tv = (TextView)rl1.findViewById(R.id.date_textview);
+		         try
+		         {
+			         Date date = db_date_fmt.parse(getItem(position).getDate());
+			         date_tv.setText(date.toString());
+			         date_tv.setTextColor(Color.BLUE);
+			         date_tv.setMaxWidth(metrics.widthPixels/2);
+		         }catch(java.text.ParseException e)
+		         {
+		        	 
+		         }
+		         
 			     return rl1;
+		     }
+		       
+		    return rl;
+	    }
+
+	    @Override
+	    public View getContentView(final int position, View convertView, ViewGroup parent) {
+	    	RelativeLayout rl = (RelativeLayout) convertView;
+	        
+		     if (rl == null) {
+		         rl = new RelativeLayout(mContext);
 		     }
 		       
 		    return rl;

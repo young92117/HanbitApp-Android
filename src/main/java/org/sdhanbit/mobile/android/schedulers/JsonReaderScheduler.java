@@ -59,7 +59,7 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
     	mFeedAPIRunner = new FeedAPIRunner(new FeedAPI());
     	
     	requestJsonFeed(61); //Share
-    	requestJsonFeed(47); //Events
+//    	requestJsonFeed(47); //Events
     	requestJsonFeed(14); //Ministry 
     	requestJsonFeed(15); //News
     	requestJsonFeed(30); //Sermon (Youtube)
