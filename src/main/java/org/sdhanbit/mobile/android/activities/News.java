@@ -31,6 +31,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -111,14 +112,17 @@ public class News {
 		        rl1.setMinimumHeight(metrics.heightPixels/2);
 		        final WebView wv = (WebView)rl1.findViewById(R.id.news_webview);
 		        wv.loadDataWithBaseURL(null, getItem(position).getContent(), "text/html", "UTF-8",null);
-		        wv.setVerticalScrollBarEnabled(false);
-       		    wv.setHorizontalScrollBarEnabled(true);
+       		    wv.setInitialScale(200);
+       		    wv.getSettings().setBuiltInZoomControls(true);
        		    wv.setOnTouchListener(new View.OnTouchListener() {
 					
 					@Override
 					public boolean onTouch(View v, MotionEvent event) {
-						rl1.setMinimumHeight(wv.getHeight());
-						mExpandableListItemAdapter.notifyDataSetChanged();
+						if(rl1.getHeight() <= metrics.heightPixels/2)
+						{
+//							rl1.setMinimumHeight(wv.getMeasuredHeight());
+							mExpandableListItemAdapter.notifyDataSetChanged();
+						}
 						return false;
 					}
 				});

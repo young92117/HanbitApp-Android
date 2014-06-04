@@ -58,12 +58,12 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
     protected void handleReceive(Context context, Intent intent) {
     	mFeedAPIRunner = new FeedAPIRunner(new FeedAPI());
     	
-    	requestJsonFeed(61); //Sermon Study
+    	requestJsonFeed(61); //Share
     	requestJsonFeed(47); //Events
-    	requestJsonFeed(14); //Pastor Column
+    	requestJsonFeed(14); //Ministry 
     	requestJsonFeed(15); //News
-    	requestJsonFeed(30); //Sermon Text
-    	requestJsonFeed(86); //Hope Seed
+    	requestJsonFeed(30); //Sermon (Youtube)
+    	requestJsonFeed(87); //Words
     }
     
     public void requestJsonFeed(int cat)

@@ -7,10 +7,12 @@ import android.app.Activity;
 import java.util.HashMap;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.sdhanbit.mobile.android.R;
 import org.sdhanbit.mobile.android.entities.FeedEntry;
 import org.sdhanbit.mobile.android.managers.FeedEntryManager;
 
+import com.haarman.listviewanimations.ArrayAdapter;
 import com.haarman.listviewanimations.itemmanipulation.ExpandableListItemAdapter;
 import com.haarman.listviewanimations.swinginadapters.prepared.AlphaInAnimationAdapter;
 
@@ -29,9 +31,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -42,7 +45,7 @@ public class Sermon {
 	private Context mContext;
 	private FeedEntryManager feedEntryManager;
 	private View mainView;
-	private SimpleExpandableListItemAdapter mExpandableListItemAdapter;
+	private static SimpleExpandableListItemAdapter mAdapter;
 	private static DisplayMetrics metrics;
 	
 	public Sermon(Context context, FeedEntryManager feedEntryManager, View mainView)
@@ -58,20 +61,59 @@ public class Sermon {
 	public void construct()
     {
     	Log.v(TAG, "Starting Sermon");
-   	 	ListView news_list = (ListView)(mainView.findViewById(R.id.sermon_list));
+   	 	ListView list = (ListView)(mainView.findViewById(R.id.sermon_list));
    	 	
    	 	try
    	 	{
    	 		List<FeedEntry> entries = feedEntryManager.getFeedEntries("30");
-   	 		mExpandableListItemAdapter = new SimpleExpandableListItemAdapter(mContext, entries);
-			AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mExpandableListItemAdapter);
-			alphaInAnimationAdapter.setAbsListView(news_list);
-			news_list.setAdapter(alphaInAnimationAdapter);
+   	 		mAdapter = new SimpleExpandableListItemAdapter(mContext, entries);
+			AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
+			alphaInAnimationAdapter.setAbsListView(list);
+			list.setAdapter(mAdapter);
     	}catch(IllegalArgumentException e)
 	 	{
 	 		Toast.makeText(mContext, "Database is not ready yet. Please try again", Toast.LENGTH_LONG).show();
 	 	}
     }
+	
+	private class MyAdapter extends ArrayAdapter<FeedEntry> {
+
+		private Context mContext;
+		private List<FeedEntry> array;
+
+		public MyAdapter(Context context, List<FeedEntry> array) {
+			super(array);
+			mContext = context;
+			this.array = array;
+		}
+
+//		public long getItemId(int position) {
+//			return getItem(position).hashCode();
+//		}
+        
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			RelativeLayout rl = (RelativeLayout) convertView;
+	        
+		     if (rl == null) {
+		         final RelativeLayout rl1 = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.sermon_content, null);
+		         rl1.setMinimumWidth(metrics.widthPixels);
+		         final WebView wv = (WebView)rl1.findViewById(R.id.sermon_webview);
+//		         wv.setVerticalScrollBarEnabled(true);
+//		         wv.setHorizontalScrollBarEnabled(true);
+		         wv.setInitialScale(50);
+		         WebSettings settings = wv.getSettings();
+		         settings.setJavaScriptEnabled(true);
+//		         settings.setSaveFormData(true);
+//		         settings.setJavaScriptCanOpenWindowsAutomatically(true);
+//		         settings.setLoadsImagesAutomatically(true);
+		         wv.loadDataWithBaseURL(null, getItem(position).getContentDisplay(), "text/html", "UTF-8",null);
+			     return rl1;
+		     }
+		       
+		    return rl;
+		}
+	}
 	
 	private static class SimpleExpandableListItemAdapter extends ExpandableListItemAdapter<FeedEntry> {
 
@@ -103,16 +145,23 @@ public class Sermon {
 	    	RelativeLayout rl = (RelativeLayout) convertView;
 	        
 		     if (rl == null) {
-		         rl = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.sermon_content, null);
-		         rl.setMinimumHeight(metrics.heightPixels);
-		         rl.setMinimumWidth(metrics.widthPixels);
-		         WebView wv = (WebView)rl.findViewById(R.id.sermon_webview);
-		         wv.setVerticalScrollBarEnabled(true);
-		         wv.setHorizontalScrollBarEnabled(true);
-		         wv.getSettings().setJavaScriptEnabled(true);
-			     wv.loadDataWithBaseURL(null, getItem(position).getContentDisplay(), "text/html", "UTF-8",null);
-			     wv.setOnTouchListener(new View.OnTouchListener() {
-						
+		         final RelativeLayout rl1 = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.sermon_content, null);
+		         rl1.setMinimumHeight(metrics.heightPixels/2);
+		         rl1.setMinimumWidth(metrics.widthPixels);
+		         final WebView wv = (WebView)rl1.findViewById(R.id.sermon_webview);
+//		         wv.setVerticalScrollBarEnabled(true);
+//		         wv.setHorizontalScrollBarEnabled(true);
+		         wv.setInitialScale(200);
+		         WebSettings settings = wv.getSettings();
+//		         settings.setPluginState(PluginState.ON);
+		         settings.setUseWideViewPort(true);
+		         settings.setJavaScriptEnabled(true);
+//		         settings.setSaveFormData(true);
+//		         settings.setJavaScriptCanOpenWindowsAutomatically(true);
+		         settings.setLoadsImagesAutomatically(true);
+		         wv.loadDataWithBaseURL(null, getItem(position).getContentDisplay(), "text/html", "UTF-8",null);
+		         wv.setOnTouchListener(new View.OnTouchListener() {
+
 						@Override
 						public boolean onTouch(View v, MotionEvent event) {
 							if(event.getAction() == MotionEvent.ACTION_UP)
@@ -123,6 +172,7 @@ public class Sermon {
 							return true;
 						}
 				 });
+			     return rl1;
 		     }
 		       
 		    return rl;
