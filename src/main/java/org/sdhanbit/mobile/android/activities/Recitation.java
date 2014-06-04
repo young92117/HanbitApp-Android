@@ -18,7 +18,7 @@ import android.widget.ListView;
 import com.haarman.listviewanimations.swinginadapters.prepared.AlphaInAnimationAdapter;
 //import roboguice.activity.RoboActivity;
 
-import static android.app.PendingIntent.getActivity;
+//import android.app.PendingIntent.getActivity;
 
 //import static android.app.PendingIntent.getActivity;
 //import static android.support.v4.app.ActivityCompat.startActivity;
@@ -63,7 +63,7 @@ public class Recitation extends Activity {
         {
           // Activity was found, launch new app
           //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-          startActivity(intent);
+          mContext.startActivity(intent);
         }
         else
         {
@@ -71,7 +71,7 @@ public class Recitation extends Activity {
           //intent = new Intent(Intent.ACTION_VIEW);
           //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
           intent.setData(Uri.parse("market://details?id=+org.sdhanbit.android"));
-          startActivity(intent);
+          mContext.startActivity(intent);
         }
         //*/
 

@@ -72,7 +72,7 @@ public class Sermon {
    	 		mAdapter = new SimpleExpandableListItemAdapter(mContext, entries);
 			AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
 			alphaInAnimationAdapter.setAbsListView(list);
-			list.setAdapter(mAdapter);
+			list.setAdapter(alphaInAnimationAdapter);
     	}catch(IllegalArgumentException e)
 	 	{
 	 		Toast.makeText(mContext, "Database is not ready yet. Please try again", Toast.LENGTH_LONG).show();
@@ -89,7 +89,8 @@ public class Sermon {
 	     * Context, or the Context and the List<T> up to super.
 	     */
 	    private SimpleExpandableListItemAdapter(Context context, List<FeedEntry> items) {
-	        super(context, R.layout.activity_expandablelistitem_card, R.id.activity_expandablelistitem_card_title, R.id.activity_expandablelistitem_card_content, items);
+	        super(context, R.layout.activity_expandablelistitem_card,
+	        		R.id.activity_expandablelistitem_card_title, R.id.activity_expandablelistitem_card_content, items);
 	        mContext = context;         
 	    }
 
@@ -97,22 +98,25 @@ public class Sermon {
 	    public View getTitleView(final int position, View convertView, ViewGroup parent) {
 	    	RelativeLayout rl = (RelativeLayout) convertView;
 	        
-		     if (rl == null) {
-		         final RelativeLayout rl1 = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.sermon_content, null);
-		         rl1.setMinimumWidth(metrics.widthPixels);
-		         final WebView wv = (WebView)rl1.findViewById(R.id.sermon_webview);
+		     if (rl == null) 
+		     {
+		         rl = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.sermon_content, null);
+		     }
+
+		     rl.setMinimumWidth(metrics.widthPixels);
+		     final WebView wv = (WebView)rl.findViewById(R.id.sermon_webview);
 //		         wv.setVerticalScrollBarEnabled(true);
 //		         wv.setHorizontalScrollBarEnabled(true);
-		         wv.setInitialScale(50);
-		         WebSettings settings = wv.getSettings();
+		     wv.setInitialScale(50);
+		     WebSettings settings = wv.getSettings();
 //		         settings.setPluginState(PluginState.ON);
 //		         settings.setUseWideViewPort(true);
-		         settings.setJavaScriptEnabled(true);
+		     settings.setJavaScriptEnabled(true);
 //		         settings.setSaveFormData(true);
 //		         settings.setJavaScriptCanOpenWindowsAutomatically(true);
 //		         settings.setLoadsImagesAutomatically(true);
-		         wv.loadDataWithBaseURL(null, getItem(position).getContentDisplay(), "text/html", "UTF-8",null);
-		         wv.setOnTouchListener(new View.OnTouchListener() {
+		     wv.loadDataWithBaseURL(null, getItem(position).getContentDisplay(), "text/html", "UTF-8",null);
+		     wv.setOnTouchListener(new View.OnTouchListener() {
 
 						@Override
 						public boolean onTouch(View v, MotionEvent event) {
@@ -122,28 +126,24 @@ public class Sermon {
 							}
 							return true;
 						}
-				 });
-		         TextView title_tv = (TextView)rl1.findViewById(R.id.sermon_textview);
-		         title_tv.setText(getItem(position).getTitle());
-		         title_tv.setTextColor(Color.BLACK);
-		         title_tv.setMaxWidth(metrics.widthPixels/2);
+			});
+		    TextView title_tv = (TextView)rl.findViewById(R.id.sermon_textview);
+		    title_tv.setText(getItem(position).getTitle());
+		    title_tv.setTextColor(Color.BLACK);
+		    title_tv.setMaxWidth(metrics.widthPixels/2);
 		         
-		         SimpleDateFormat db_date_fmt = new SimpleDateFormat("yyyyMMddHHmmss");
-		         TextView date_tv = (TextView)rl1.findViewById(R.id.date_textview);
-		         try
-		         {
-			         Date date = db_date_fmt.parse(getItem(position).getDate());
-			         date_tv.setText(date.toString());
-			         date_tv.setTextColor(Color.BLUE);
-			         date_tv.setMaxWidth(metrics.widthPixels/2);
-		         }catch(java.text.ParseException e)
-		         {
+		    SimpleDateFormat db_date_fmt = new SimpleDateFormat("yyyyMMddHHmmss");
+		    TextView date_tv = (TextView)rl.findViewById(R.id.date_textview);
+		    try
+		    {
+			     Date date = db_date_fmt.parse(getItem(position).getDate());
+			     date_tv.setText(date.toString());
+			     date_tv.setTextColor(Color.BLUE);
+			     date_tv.setMaxWidth(metrics.widthPixels/2);
+		     }catch(java.text.ParseException e)
+		     {
 		        	 
-		         }
-		         
-			     return rl1;
 		     }
-		       
 		    return rl;
 	    }
 

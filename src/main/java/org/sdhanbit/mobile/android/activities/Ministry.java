@@ -98,7 +98,7 @@ public class Ministry {
 		        rl1.setMinimumWidth(metrics.widthPixels);
 		        rl1.setMinimumHeight(metrics.heightPixels/2);
 		        final WebView wv = (WebView)rl1.findViewById(R.id.webview);
-		        wv.loadDataWithBaseURL(null, getItem(position).getContent(), "text/html", "UTF-8",null);
+		        wv.loadDataWithBaseURL(null, getItem(position).getContent().replace('\n'+"", "<br>"), "text/html", "UTF-8",null);
        		    wv.setInitialScale(200);
        		    wv.getSettings().setBuiltInZoomControls(true);
        		    wv.setOnTouchListener(new View.OnTouchListener() {
