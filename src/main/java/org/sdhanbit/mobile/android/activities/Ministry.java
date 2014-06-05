@@ -1,8 +1,10 @@
 package org.sdhanbit.mobile.android.activities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.sdhanbit.mobile.android.R;
+import org.sdhanbit.mobile.android.activities.News.InvStatus;
 import org.sdhanbit.mobile.android.entities.FeedEntry;
 import org.sdhanbit.mobile.android.managers.FeedEntryManager;
 
@@ -34,6 +36,18 @@ public class Ministry {
 	private static SimpleExpandableListItemAdapter mExpandableListItemAdapter;
 	private static DisplayMetrics metrics;
 	private static ListView list;
+	private static ArrayList<InvStatus> invStatuses;
+	private static View.OnTouchListener touchListener;
+	private static WebViewClient webClient;
+	
+	class InvStatus
+	{
+		public boolean isNew;
+		public InvStatus()
+		{
+			isNew = false;
+		}
+	}
 	
 	public Ministry(Context context, FeedEntryManager feedEntryManager, View mainView)
 	{
@@ -57,6 +71,12 @@ public class Ministry {
 			AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mExpandableListItemAdapter);
 			alphaInAnimationAdapter.setAbsListView(list);
 			list.setAdapter(alphaInAnimationAdapter);
+			
+			invStatuses = new ArrayList<InvStatus>();
+			for(int i=0; i < entries.size(); i++)
+			{
+				invStatuses.add(new InvStatus());
+			}
    	 	}catch(IllegalArgumentException e)
    	 	{
    	 		Toast.makeText(mContext, "Database is not ready yet. Please try again", Toast.LENGTH_LONG).show();
@@ -90,33 +110,50 @@ public class Ministry {
 	    }
 
 	    @Override
-	    public View getContentView(int position, View convertView, final ViewGroup parent) {
+	    public View getContentView(final int position, View convertView, final ViewGroup parent) {
 	    	
 	    	 RelativeLayout rl = (RelativeLayout) convertView;
 		        
 		     if (rl == null) {
 		    	rl = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.ministry_content, null);
+		    	webClient = null;
+		    	touchListener = null;
 		     }
 		     rl.setMinimumWidth(metrics.widthPixels);
 		     rl.setMinimumHeight(metrics.heightPixels/2);
-		     WebView wv = (WebView)rl.findViewById(R.id.webview);
+		     final WebView wv = (WebView)rl.findViewById(R.id.webview);
 		     wv.loadDataWithBaseURL(null, getItem(position).getContent().replace('\n'+"", "<br>"), "text/html", "UTF-8",null);
-       		 wv.setInitialScale(200);
-       		 wv.getSettings().setBuiltInZoomControls(true);
+       		 wv.getSettings().setBuiltInZoomControls(false);
        		 final RelativeLayout rl1 = rl;
-       		wv.setWebViewClient(new WebViewClient(){
-       			public void onPageFinished(WebView view, String url) {
-       				rl1.invalidate();
-       			}
-       		 });
-       		 rl.setOnTouchListener(new View.OnTouchListener() {
-				
-       		   	@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					mExpandableListItemAdapter.notifyDataSetChanged();
-					return false;
-				}
-			});
+       		 if(webClient == null)
+      		 {
+      			 webClient = new WebViewClient(){
+           			public void onPageFinished(WebView view, String url) {
+              				rl1.invalidate();
+              				invStatuses.get(position).isNew = false;
+              			}
+              		 }; 
+              	 wv.setWebViewClient(webClient);
+      		 }
+      		 
+      		 if(touchListener == null)
+      		 {
+      			touchListener = new View.OnTouchListener() {
+  				 @Override
+  				 public boolean onTouch(View v, MotionEvent event) {
+  					 if(!invStatuses.get(position).isNew)
+  					 {
+  						 rl1.setMinimumHeight(wv.getMeasuredHeight());
+  						 mExpandableListItemAdapter.notifyDataSetChanged();
+  						 invStatuses.get(position).isNew = true;
+  					 }
+  					 return false;
+  				 }
+      			};
+      			
+      			rl.setOnTouchListener(touchListener);
+      			wv.setOnTouchListener(touchListener);
+  			 }
   	        
        		return rl;
 	    }
