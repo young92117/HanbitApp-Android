@@ -118,11 +118,8 @@ public class News {
 					
 					@Override
 					public boolean onTouch(View v, MotionEvent event) {
-						if(rl1.getHeight() <= metrics.heightPixels/2)
-						{
-//							rl1.setMinimumHeight(wv.getMeasuredHeight());
-							mExpandableListItemAdapter.notifyDataSetChanged();
-						}
+						rl1.invalidate();
+						mExpandableListItemAdapter.notifyDataSetChanged();
 						return false;
 					}
 				});
