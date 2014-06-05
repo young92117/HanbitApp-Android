@@ -107,25 +107,28 @@ public class News {
 	    	 RelativeLayout rl = (RelativeLayout) convertView;
 		        
 		     if (rl == null) {
-		    	final RelativeLayout rl1 = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.news_content, null);
-		        rl1.setMinimumWidth(metrics.widthPixels);
-		        rl1.setMinimumHeight(metrics.heightPixels/2);
-		        final WebView wv = (WebView)rl1.findViewById(R.id.news_webview);
-		        wv.loadDataWithBaseURL(null, getItem(position).getContent().replace('\n'+"", "<br>"), "text/html", "UTF-8",null);
-       		    wv.setInitialScale(200);
-       		    wv.getSettings().setBuiltInZoomControls(true);
-       		    wv.setOnTouchListener(new View.OnTouchListener() {
-					
-					@Override
-					public boolean onTouch(View v, MotionEvent event) {
-						rl1.invalidate();
-						mExpandableListItemAdapter.notifyDataSetChanged();
-						return false;
-					}
-				});
-  	            return rl1;
+		    	rl = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.news_content, null);
 		     }
-		     
+		     rl.setMinimumWidth(metrics.widthPixels);
+		     rl.setMinimumHeight(metrics.heightPixels/2);
+		     final WebView wv = (WebView)rl.findViewById(R.id.news_webview);
+		     wv.loadDataWithBaseURL(null, getItem(position).getContent().replace('\n'+"", "<br>"), "text/html", "UTF-8",null);
+       		 wv.setInitialScale(200);
+       		 wv.getSettings().setBuiltInZoomControls(true);
+       		 final RelativeLayout rl1 = rl;
+       		 wv.setWebViewClient(new WebViewClient(){
+       			public void onPageFinished(WebView view, String url) {
+       				rl1.invalidate();
+       			}
+       		 });
+       		 rl.setOnTouchListener(new View.OnTouchListener() {
+				 @Override
+				 public boolean onTouch(View v, MotionEvent event) {
+       				 mExpandableListItemAdapter.notifyDataSetChanged();
+					 return false;
+				 }
+			 });
+  	         
 	    	 return rl;
 	    }
 	}

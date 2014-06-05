@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -93,27 +94,30 @@ public class Share {
 	    	 RelativeLayout rl = (RelativeLayout) convertView;
 		        
 		     if (rl == null) {
-		    	final RelativeLayout rl1 = 
-		    			(RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.share_content, null);
-		        rl1.setMinimumWidth(metrics.widthPixels);
-		        rl1.setMinimumHeight(metrics.heightPixels/2);
-		        final WebView wv = (WebView)rl1.findViewById(R.id.webview);
-		        wv.loadDataWithBaseURL(null, getItem(position).getContent().replace('\n'+"", "<br>"), "text/html", "UTF-8",null);
-       		    wv.setInitialScale(200);
-       		    wv.getSettings().setBuiltInZoomControls(true);
-       		    wv.setOnTouchListener(new View.OnTouchListener() {
-					
-       		    	@Override
-					public boolean onTouch(View v, MotionEvent event) {
-						rl1.invalidate();
-						mExpandableListItemAdapter.notifyDataSetChanged();
-						return false;
-					}
-				});
-  	            return rl1;
+		    	rl = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.share_content, null);
 		     }
-		     
-	    	 return rl;
+		     rl.setMinimumWidth(metrics.widthPixels);
+		     rl.setMinimumHeight(metrics.heightPixels/2);
+		     WebView wv = (WebView)rl.findViewById(R.id.webview);
+		     wv.loadDataWithBaseURL(null, getItem(position).getContent().replace('\n'+"", "<br>"), "text/html", "UTF-8",null);
+       		 wv.setInitialScale(200);
+       		 wv.getSettings().setBuiltInZoomControls(true);
+       		 final RelativeLayout rl1 = rl;
+       		wv.setWebViewClient(new WebViewClient(){
+       			public void onPageFinished(WebView view, String url) {
+       				rl1.invalidate();
+       			}
+       		 });
+       		 rl.setOnTouchListener(new View.OnTouchListener() {
+				
+       		   	@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					mExpandableListItemAdapter.notifyDataSetChanged();
+					return false;
+				}
+			});
+  	        
+       		return rl;
 	    }
 	}
 }
