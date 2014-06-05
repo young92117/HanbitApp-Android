@@ -11,9 +11,11 @@ import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -29,6 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -111,17 +114,12 @@ public class MainActivity extends RoboActivity {
       // set a custom shadow that overlays the main content when the drawer opens
       mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
-//      TextView tv = new TextView( this ); //jin
-//      tv.setText( "Header" );
-//      mDrawerList.addHeaderView( tv );
-
       // set up the drawer's list view with items and click listener
       mDrawerList.setAdapter(new ArrayAdapter<String>(this,
               R.layout.drawer_list_item, mMenuTitles));
       mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
       mDrawerList.setBackground(getResources().getDrawable(R.drawable.drawerbackground));
       mDrawerList.setDividerHeight(0);
-//      mDrawerList.setDivider(new ColorDrawable(Color.parseColor("#FF404040")));
 
       // enable ActionBar app icon to behave as action to toggle nav drawer
       getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -216,10 +214,6 @@ public class MainActivity extends RoboActivity {
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
 
-        //TextView tv = new TextView( this ); //jin
-        //tv.setText( "Header" );
-        //mDrawerList.addHeaderView( tv );
-
         setTitle(mMenuTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
@@ -262,7 +256,7 @@ public class MainActivity extends RoboActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             int i = getArguments().getInt(ARG_MENU_NUMBER);
-            View rootView;
+            View rootView = null;
             String menu;
             int imageId;
             isFrontMenu = false;
@@ -316,10 +310,30 @@ public class MainActivity extends RoboActivity {
                     getActivity().setTitle(menu);
                     break;
             case 7: //Recitation
-                    rootView = inflater.inflate(R.layout.recitation, container, false);
-                    menu = getResources().getStringArray(R.array.menu_array)[i];
-                    new Recitation(mContext, feedEntryManager, rootView).construct();
-                    getActivity().setTitle(menu);
+                    {
+		                PackageManager pm = mContext.getPackageManager();
+		                Intent intent = pm.getLaunchIntentForPackage("org.sdhanbit.android");
+		                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+		                if (intent != null)
+		                  mContext.startActivity(intent);
+		                else
+		                {
+		                  intent.setData(Uri.parse("market://details?id=+org.sdhanbit.android"));
+		                  mContext.startActivity(intent);
+		                }
+		                isFrontMenu = true;
+		            	rootView = inflater.inflate(R.layout.front_page, container, false);
+		                GridView grid = (GridView)(rootView.findViewById(R.id.main_grid));
+		                grid.setAdapter(new GridViewContent(mContext));
+		                grid.setOnItemClickListener(gridItemClickListener);
+
+		            	menu = getResources().getStringArray(R.array.menu_array)[0];
+			            getActivity().setTitle(menu);
+                    }
+//                    rootView = inflater.inflate(R.layout.recitation, container, false);
+//                    menu = getResources().getStringArray(R.array.menu_array)[i];
+//                    new Recitation(mContext, feedEntryManager, rootView).construct();
+//                    getActivity().setTitle(menu);
                     break;
             case 8: //Ministry
                     rootView = inflater.inflate(R.layout.ministry, container, false);
@@ -346,24 +360,32 @@ public class MainActivity extends RoboActivity {
                     getActivity().setTitle(menu);
                     break;
             case 12: //Actions
-                    rootView = inflater.inflate(R.layout.actions, container, false);
-                    menu = getResources().getStringArray(R.array.menu_array)[i];
-                    new Actions(mContext, feedEntryManager, rootView).construct();
-                    getActivity().setTitle(menu);
+            		{
+	            		Intent intent = new Intent(Intent.CATEGORY_BROWSABLE);
+						intent.setAction("android.intent.action.VIEW");
+						intent.addCategory("android.intent.category.BROWSABLE");
+						Uri uri = Uri
+								.parse("https://docs.google.com/spreadsheet/ccc?key=0Ahw6lNCJGfZ6dDNJcm9IT0lqVWVZNU5Zc3B0ZklfSGc&usp=sharing");
+						intent.setData(uri);
+						mContext.startActivity(Intent.createChooser(intent,"Please choose map application"));
+						isFrontMenu = true;
+		            	rootView = inflater.inflate(R.layout.front_page, container, false);
+		                GridView grid = (GridView)(rootView.findViewById(R.id.main_grid));
+		                grid.setAdapter(new GridViewContent(mContext));
+		                grid.setOnItemClickListener(gridItemClickListener);
+
+		            	menu = getResources().getStringArray(R.array.menu_array)[0];
+			            getActivity().setTitle(menu);
+            		}
+//                    rootView = inflater.inflate(R.layout.actions, container, false);
+//                    menu = getResources().getStringArray(R.array.menu_array)[i];
+//                    new Actions(mContext, feedEntryManager, rootView).construct();
+//                    getActivity().setTitle(menu);
                     break;
             case 13: //School
                     rootView = inflater.inflate(R.layout.school, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new School(mContext, feedEntryManager, rootView).construct();
-                    getActivity().setTitle(menu);
-                    break;
-            case 14: //test
-                    rootView = inflater.inflate(R.layout.front_page, container, false);
-                    gridView = (GridView)(rootView.findViewById(R.id.main_grid));
-                    gridView.setAdapter(new GridViewContent(mContext));
-                    gridView.setOnItemClickListener(gridItemClickListener);
-
-                    menu = getResources().getStringArray(R.array.menu_array)[i];
                     getActivity().setTitle(menu);
                     break;
             default:
