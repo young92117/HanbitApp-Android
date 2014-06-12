@@ -112,7 +112,7 @@ public class MainActivity extends RoboActivity {
         mTitle = mDrawerTitle = getTitle();
 
       // set a custom shadow that overlays the main content when the drawer opens
-      mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+//      mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
       // set up the drawer's list view with items and click listener
       mDrawerList.setAdapter(new ArrayAdapter<String>(this,
@@ -164,7 +164,7 @@ public class MainActivity extends RoboActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+//        menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -177,17 +177,17 @@ public class MainActivity extends RoboActivity {
         }
         // Handle action buttons
         switch(item.getItemId()) {
-            case R.id.action_websearch:
-                // create intent to perform web search for this planet
-                Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-                intent.putExtra(SearchManager.QUERY, getActionBar().getTitle());
-                // catch event that there's no activity to handle intent
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(this, R.string.app_not_available, Toast.LENGTH_LONG).show();
-                }
-                return true;
+//            case R.id.action_websearch:
+//                // create intent to perform web search for this planet
+//                Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+//                intent.putExtra(SearchManager.QUERY, getActionBar().getTitle());
+//                // catch event that there's no activity to handle intent
+//                if (intent.resolveActivity(getPackageManager()) != null) {
+//                    startActivity(intent);
+//                } else {
+//                    Toast.makeText(this, R.string.app_not_available, Toast.LENGTH_LONG).show();
+//                }
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -360,27 +360,10 @@ public class MainActivity extends RoboActivity {
                     getActivity().setTitle(menu);
                     break;
             case 12: //Actions
-            		{
-	            		Intent intent = new Intent(Intent.CATEGORY_BROWSABLE);
-						intent.setAction("android.intent.action.VIEW");
-						intent.addCategory("android.intent.category.BROWSABLE");
-						Uri uri = Uri
-								.parse("https://docs.google.com/spreadsheet/ccc?key=0Ahw6lNCJGfZ6dDNJcm9IT0lqVWVZNU5Zc3B0ZklfSGc&usp=sharing");
-						intent.setData(uri);
-						mContext.startActivity(Intent.createChooser(intent,"Please choose map application"));
-						isFrontMenu = true;
-		            	rootView = inflater.inflate(R.layout.front_page, container, false);
-		                GridView grid = (GridView)(rootView.findViewById(R.id.main_grid));
-		                grid.setAdapter(new GridViewContent(mContext));
-		                grid.setOnItemClickListener(gridItemClickListener);
-
-		            	menu = getResources().getStringArray(R.array.menu_array)[0];
-			            getActivity().setTitle(menu);
-            		}
-//                    rootView = inflater.inflate(R.layout.actions, container, false);
-//                    menu = getResources().getStringArray(R.array.menu_array)[i];
-//                    new Actions(mContext, feedEntryManager, rootView).construct();
-//                    getActivity().setTitle(menu);
+                    rootView = inflater.inflate(R.layout.actions, container, false);
+                    menu = getResources().getStringArray(R.array.menu_array)[i];
+                    new Actions(mContext, feedEntryManager, rootView).construct();
+                    getActivity().setTitle(menu);
                     break;
             case 13: //School
                     rootView = inflater.inflate(R.layout.school, container, false);

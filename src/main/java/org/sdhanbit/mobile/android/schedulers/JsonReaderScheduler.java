@@ -64,6 +64,7 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
     	requestJsonFeed(15); //News
     	requestJsonFeed(30); //Sermon (Youtube)
     	requestJsonFeed(87); //Words
+    	feedEntryManager.cleanUpFeedEntries(1000);
     }
     
     public void requestJsonFeed(int cat)
@@ -72,8 +73,8 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
     	String theLastDate;
     	try {
     		theLastDate = feedEntryManager.getTheRecentDate(cat+"");
-        	if(!theLastDate.equals(""))
-        		parameters.putString("after", theLastDate);
+        	if(theLastDate.equals(""))
+        		parameters.putString("after", theLastDate+"");
         	parameters.putString("per_page", "20");
    			parameters.putString("cat", cat+"");
         	mFeedAPIRunner.feed(parameters, "GET", new FeedRequestListener(cat));

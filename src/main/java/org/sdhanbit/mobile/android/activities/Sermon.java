@@ -5,9 +5,12 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import org.json.JSONObject;
 import org.sdhanbit.mobile.android.R;
@@ -107,7 +110,7 @@ public class Sermon {
 		     final WebView wv = (WebView)rl.findViewById(R.id.sermon_webview);
 //		         wv.setVerticalScrollBarEnabled(true);
 //		         wv.setHorizontalScrollBarEnabled(true);
-		     wv.setInitialScale(50);
+		     wv.setInitialScale(30);
 		     WebSettings settings = wv.getSettings();
 //		         settings.setPluginState(PluginState.ON);
 //		         settings.setUseWideViewPort(true);
@@ -136,8 +139,13 @@ public class Sermon {
 		    TextView date_tv = (TextView)rl.findViewById(R.id.date_textview);
 		    try
 		    {
-			     Date date = db_date_fmt.parse(getItem(position).getDate());
-			     date_tv.setText(date.toString());
+		    	 Date date = db_date_fmt.parse(getItem(position).getDate()+"");
+			     Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT-8"), Locale.US);
+			     cal.setTime(date);
+			     cal.setTimeInMillis((cal.getTimeInMillis() - 604800000));
+			     date_tv.setText(cal.get(Calendar.WEEK_OF_MONTH)+ " week "+
+			    		 		 cal.getDisplayName(Calendar.MONTH, cal.LONG, Locale.US)+" "+
+			    		 		 cal.get(Calendar.YEAR));
 			     date_tv.setTextColor(Color.BLUE);
 			     date_tv.setMaxWidth(metrics.widthPixels/2);
 		     }catch(java.text.ParseException e)

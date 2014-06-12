@@ -65,9 +65,32 @@ public class FeedEntryManager extends BaseJsonFeedDatabaseManager {
         return feedEntries;
     }
     
+    public void cleanUpFeedEntries(long limit) {
+
+//    	Log.v(TAG,"delete entered");
+        try {
+            Dao<FeedEntry, Integer> feedEntryDao = getFeedEntryDao();
+
+            PreparedQuery<FeedEntry> query = feedEntryDao.queryBuilder().orderBy("date", false).prepare();
+            List<FeedEntry> feedEntries = feedEntryDao.query(query);
+            long count = feedEntries.size();
+            if(count >= limit)
+            {
+                for(int i=(int)limit; i < count; i++)
+                {
+                	feedEntryDao.delete(feedEntries.get(i));
+                }
+//            	Log.v(TAG,"delete" + count+" "+limit);
+            }
+        } catch (SQLException e) {
+            Log.e(TAG, "Database exception", e);
+        }
+
+    }
+    
     public String getTheRecentDate(String type) {
     	
-    	String date="";
+    	String date = "";
         List<FeedEntry> feedEntries = new ArrayList<FeedEntry>();
 
         try {
