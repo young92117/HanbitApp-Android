@@ -23,7 +23,7 @@ public abstract class BaseJsonFeedDatabaseManager {
     @Inject
     private MainApplication application;
     
-    private Context mContext;
+    private static Context mContext;
 
     private JsonFeedDatabaseHelper jsonFeedDatabaseHelper;
 

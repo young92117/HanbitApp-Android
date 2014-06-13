@@ -29,7 +29,7 @@ public class Map {
 	public void construct()
     {
     	Log.v(TAG, "Starting Map");
-    	ImageView map_iv = (ImageView)(mainView.findViewById(R.id.imageView));
+    	ImageView map_iv = (ImageView)(mainView.findViewById(R.id.compass_imageview));
     	map_iv.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
