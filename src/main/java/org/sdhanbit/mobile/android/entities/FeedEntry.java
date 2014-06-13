@@ -30,8 +30,8 @@ public class FeedEntry {
         // ORMLite needs a no-arg constructor
     }
 
-    public FeedEntry(String date, String title, String content, String content_display, String type) {
-    	this._id = (date+type).hashCode();
+    public FeedEntry(int id, String date, String title, String content, String content_display, String type) {
+    	this._id = id;
     	this.date = date;
         this.title = title;
         this.content = content;

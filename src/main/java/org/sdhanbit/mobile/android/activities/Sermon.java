@@ -43,6 +43,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,7 @@ public class Sermon {
 	private View mainView;
 	private static SimpleExpandableListItemAdapter mAdapter;
 	private static DisplayMetrics metrics;
+	private static ArrayList<Calendar> adjusted_cals;
 	
 	public Sermon(Context context, FeedEntryManager feedEntryManager, View mainView)
 	{
@@ -68,7 +70,6 @@ public class Sermon {
     {
     	Log.v(TAG, "Starting Sermon");
    	 	ListView list = (ListView)(mainView.findViewById(R.id.sermon_list));
-   	 	
    	 	try
    	 	{
    	 		List<FeedEntry> entries = feedEntryManager.getFeedEntries("30");
@@ -76,6 +77,16 @@ public class Sermon {
 			AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
 			alphaInAnimationAdapter.setAbsListView(list);
 			list.setAdapter(alphaInAnimationAdapter);
+			
+	    	if(adjusted_cals == null)
+	    	{
+	    		adjusted_cals = new ArrayList<Calendar>();
+	    		for(int i=0; i < entries.size(); i++)
+	    		{
+	    			adjusted_cals.add(null);
+	    		}
+	    	}
+
     	}catch(IllegalArgumentException e)
 	 	{
 	 		Toast.makeText(mContext, "Database is not ready yet. Please try again", Toast.LENGTH_LONG).show();
@@ -107,6 +118,8 @@ public class Sermon {
 		     }
 
 		     rl.setMinimumWidth(metrics.widthPixels);
+		     TableLayout text_tl = (TableLayout)rl.findViewById(R.id.text_tl);
+		     text_tl.setMinimumWidth(metrics.widthPixels/2);
 		     final WebView wv = (WebView)rl.findViewById(R.id.sermon_webview);
 //		         wv.setVerticalScrollBarEnabled(true);
 //		         wv.setHorizontalScrollBarEnabled(true);
@@ -135,26 +148,20 @@ public class Sermon {
 		    title_tv.setTextColor(Color.BLACK);
 		    title_tv.setMaxWidth(metrics.widthPixels/2);
 		         
-		    SimpleDateFormat db_date_fmt = new SimpleDateFormat("yyyyMMddHHmmss");
 		    TextView date_tv = (TextView)rl.findViewById(R.id.date_textview);
-		    try
+		    if(adjusted_cals.get(position) == null)
+		    	adjusted_cals.add(position,((MainActivity)mContext).getDateAdjusted(getItem(position).getDate()+""));
+		    if(adjusted_cals.get(position) != null)
 		    {
-		    	 Date date = db_date_fmt.parse(getItem(position).getDate()+"");
-			     Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT-8"), Locale.US);
-			     cal.setTime(date);
-			     cal.setTimeInMillis((cal.getTimeInMillis() - 604800000));
-			     date_tv.setText(cal.get(Calendar.WEEK_OF_MONTH)+ " week "+
-			    		 		 cal.getDisplayName(Calendar.MONTH, cal.LONG, Locale.US)+" "+
-			    		 		 cal.get(Calendar.YEAR));
-			     date_tv.setTextColor(Color.BLUE);
-			     date_tv.setMaxWidth(metrics.widthPixels/2);
-		     }catch(java.text.ParseException e)
-		     {
-		        	 
-		     }
+		    	 date_tv.setText(adjusted_cals.get(position).getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US)+" "+
+		    			 adjusted_cals.get(position).get(Calendar.DAY_OF_MONTH)+ " " + 
+		    			 adjusted_cals.get(position).get(Calendar.YEAR));
+		    	 date_tv.setTextColor(Color.BLUE);
+		    	 date_tv.setMaxWidth(metrics.widthPixels/2);
+		    }
 		    return rl;
 	    }
-
+	    
 	    @Override
 	    public View getContentView(final int position, View convertView, ViewGroup parent) {
 	    	RelativeLayout rl = (RelativeLayout) convertView;

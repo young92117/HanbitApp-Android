@@ -26,10 +26,10 @@ import org.sdhanbit.mobile.android.managers.UserPreferenceManager;
 
 import roboguice.receiver.RoboBroadcastReceiver;
 
-public class JsonReaderScheduler extends RoboBroadcastReceiver {
+public class JsonReaderScheduler{
 
-    @Inject
-    private AlarmManager mAlarmManager;
+//    @Inject
+//    private AlarmManager mAlarmManager;
     @Inject
     private UserPreferenceManager userPreferenceManager;
     @Inject
@@ -41,22 +41,22 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
     SimpleDateFormat db_date_fmt = new SimpleDateFormat("yyyyMMddHHmmss");
 
     public void setAlarm(Context context) {
-        Intent intent = new Intent(context, JsonReaderScheduler.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-        // TODO: Read the sleep time from configuration
-        int sleepTime = userPreferenceManager.getFeedRefreshFrequencyInMinutes() * 60 * 1000;
-        mAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), sleepTime, pendingIntent);
+//        Intent intent = new Intent(context, JsonReaderScheduler.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+//        // TODO: Read the sleep time from configuration
+//        int sleepTime = userPreferenceManager.getFeedRefreshFrequencyInMinutes() * 60 * 1000;
+//        mAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), sleepTime, pendingIntent);
     }
 
     public void cancelAlarm(Context context) {
-        Intent intent = new Intent(context, JsonReaderScheduler.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-        mAlarmManager.cancel(pendingIntent);
+//        Intent intent = new Intent(context, JsonReaderScheduler.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+//        mAlarmManager.cancel(pendingIntent);
     }
 
-    @Override
-    protected void handleReceive(Context context, Intent intent) {
-    	mFeedAPIRunner = new FeedAPIRunner(new FeedAPI());
+    public void receiveData() {
+    	if(mFeedAPIRunner == null)
+    		mFeedAPIRunner = new FeedAPIRunner(new FeedAPI());
 
     	feedEntryManager.cleanUpFeedEntries(1000);
     	
@@ -99,6 +99,7 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
 			}
 			
 			JSONArray feed_array;
+			int id=0;
 			String date = "";
 			String title = "";
 			String content = "";
@@ -111,6 +112,7 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
 					try
 					{
 						date = db_date_fmt.format(feed_date_fmt.parse(feed_array.getJSONObject(i).getString("date")));
+						id = feed_array.getJSONObject(i).getInt("id");
 						title = feed_array.getJSONObject(i).getString("title");
 						content = feed_array.getJSONObject(i).getString("content");
 						content_display = feed_array.getJSONObject(i).getString("content_display");
@@ -119,7 +121,7 @@ public class JsonReaderScheduler extends RoboBroadcastReceiver {
 								  "content: "+content+"\n"+
 								  "content_display: "+content_display+"\n"+
 								  "type: "+type+"\n\n");
-						feedEntryManager.addJsonFeed(date, title, content, content_display, type);
+						feedEntryManager.addJsonFeed(id, date, title, content, content_display, type);
 					}catch(Exception e)
 					{
 						Log.e(TAG,e.getMessage());

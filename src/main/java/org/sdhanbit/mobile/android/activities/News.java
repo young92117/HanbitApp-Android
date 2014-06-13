@@ -114,9 +114,11 @@ public class News {
 	        TextView tv = (TextView) convertView;
 	        if (tv == null) {
 	            tv = new TextView(mContext);
-	            tv.setTextColor(Color.BLACK);
 	        }
 	        tv.setText((CharSequence)(getItem(position)).getTitle());
+            tv.setTextColor(Color.BLACK);
+//            tv.setBackgroundColor(Color.rgb(0xde, 0xe7, 0xed));
+
 	        return tv;
 	    }
 

@@ -1,9 +1,13 @@
 package org.sdhanbit.mobile.android.activities;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -84,6 +88,25 @@ public class MainActivity extends RoboActivity {
     
     private static boolean isFrontMenu = false;
     
+    public Calendar getDateAdjusted(String dateStr)
+    {
+    	Calendar cal = null;
+    	try
+    	{
+	    	 SimpleDateFormat db_date_fmt = new SimpleDateFormat("yyyyMMddHHmmss");
+		     Date date = db_date_fmt.parse(dateStr);
+		     cal = Calendar.getInstance(TimeZone.getTimeZone("GMT-8"), Locale.US);
+		     cal.setTime(date);
+		     for(int i = 0; i < 7 && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY; i++)
+		     {
+		    	 cal.setTimeInMillis((cal.getTimeInMillis() - 86400000));
+		     }
+    	}catch(java.text.ParseException e)
+	    {
+	    }
+	    return cal;
+    }
+    
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && mDrawerList != null && !isFrontMenu) {
@@ -107,7 +130,7 @@ public class MainActivity extends RoboActivity {
         	feedEntryManager = new FeedEntryManager();
         	feedEntryManager.setContext(this);
         }
-        mJsonReaderScheduler.setAlarm(this);
+        mJsonReaderScheduler.receiveData();
         
         mTitle = mDrawerTitle = getTitle();
 

@@ -33,12 +33,12 @@ public class FeedEntryManager extends BaseJsonFeedDatabaseManager {
     	super.setContext(context);
     }
 
-    public void addJsonFeed(String date, String title, String content, String content_display, String type) 
+    public void addJsonFeed(int id, String date, String title, String content, String content_display, String type) 
     {
         try {
             // get our Dao
             Dao<FeedEntry, Integer> feedEntryDao = getFeedEntryDao();
-            FeedEntry feedEntry = new FeedEntry(date, title, content, content_display, type);
+            FeedEntry feedEntry = new FeedEntry(id, date, title, content, content_display, type);
             feedEntryDao.create(feedEntry);
             Log.d(TAG, "added " + date+" "+type);
         } catch (SQLException exception) {
@@ -65,7 +65,7 @@ public class FeedEntryManager extends BaseJsonFeedDatabaseManager {
         return feedEntries;
     }
     
-    public void cleanUpFeedEntries(long limit) {
+    public void cleanUpFeedEntries(int limit) {
 
 //    	Log.v(TAG,"delete entered");
         try {
@@ -73,10 +73,10 @@ public class FeedEntryManager extends BaseJsonFeedDatabaseManager {
 
             PreparedQuery<FeedEntry> query = feedEntryDao.queryBuilder().orderBy("date", false).prepare();
             List<FeedEntry> feedEntries = feedEntryDao.query(query);
-            long count = feedEntries.size();
+            int count = feedEntries.size();
             if(count >= limit)
             {
-                for(int i=(int)limit; i < count; i++)
+                for(int i=limit; i < count; i++)
                 {
                 	feedEntryDao.delete(feedEntries.get(i));
                 }
