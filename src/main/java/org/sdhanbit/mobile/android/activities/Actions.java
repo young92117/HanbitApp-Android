@@ -38,8 +38,7 @@ public class Actions {//} extends Activity {
     {
     	Log.v(TAG, "Starting Actions");
         WebView browser = (WebView) (mainView.findViewById(R.id.WebViewAct));
-        //setContentView(R.layout.actions);
-        browser.loadUrl("https://docs.google.com/spreadsheet/ccc?key=0Ahw6lNCJGfZ6dDNJcm9IT0lqVWVZNU5Zc3B0ZklfSGc&usp=sharing");
+        browser.loadUrl("https://docs.google.com/spreadsheet/pub?key=0Ahw6lNCJGfZ6dDNJcm9IT0lqVWVZNU5Zc3B0ZklfSGc&output=html");
     }
 
     //public void onCreate(Bundle savedInstanceState) {
