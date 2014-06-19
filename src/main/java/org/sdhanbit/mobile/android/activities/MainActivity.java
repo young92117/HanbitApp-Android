@@ -124,6 +124,9 @@ public class MainActivity extends RoboActivity {
       // enable ActionBar app icon to behave as action to toggle nav drawer
       getActionBar().setDisplayHomeAsUpEnabled(true);
       getActionBar().setHomeButtonEnabled(true);
+//      getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#b0cdec"))); // Hanbit Light Blue
+//      getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1d3b85"))); // Hanbit dark blue
+      getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#5f5f67"))); // dark gray
 
       // ActionBarDrawerToggle ties together the the proper interactions
       // between the sliding drawer and the action bar app icon
@@ -140,7 +143,7 @@ public class MainActivity extends RoboActivity {
           }
 
           public void onDrawerOpened(View drawerView) {
-              getActionBar().setTitle(mDrawerTitle);
+//              getActionBar().setTitle(mDrawerTitle);  메뉴를 띄웠을 때 현재 상태를 유지
               invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
           }
       };
