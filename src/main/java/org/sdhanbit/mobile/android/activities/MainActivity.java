@@ -272,7 +272,7 @@ public class MainActivity extends RoboActivity {
     public static class PlanetFragment extends Fragment {
         public static final String ARG_MENU_NUMBER = "menu_number";
 
-        public static int tmap[] = {3,11,12,10,8,7,5,6,9}; //by jin
+        public static int tmap[] = {3,11,12,13,8,7,5,6,9}; //by jin
 
         public PlanetFragment() {
             // Empty constructor required for fragment subclasses
@@ -434,7 +434,7 @@ class GridViewContent extends BaseAdapter {
 			R.drawable.main_sdhanbit,
 			R.drawable.main_news,
 			R.drawable.main_actions,
-			R.drawable.main_hopes,
+			R.drawable.main_school,   // 소망의씨앗 --> 문화학교
 			R.drawable.main_ministry,
 			R.drawable.main_recitation,
 			R.drawable.main_sermon,
