@@ -118,6 +118,88 @@ public class MainActivity extends RoboActivity {
         return super.onKeyDown(keyCode, event);
     }
     
+    public class CustomAdapter extends BaseAdapter {
+        private Context context;
+
+        public CustomAdapter(Context context){
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return mMenuTitles.length;
+        }
+
+        @Override
+        public Object getItem(int position) {    
+            return mMenuTitles[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                LayoutInflater mInflater = (LayoutInflater)
+                        context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+                convertView = mInflater.inflate(R.layout.drawer_list_item, null);
+            }
+
+            ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
+            TextView txtTitle = (TextView) convertView.findViewById(R.id.text1);
+            int res;
+            switch(position)
+            {
+            case 0:
+            	res = R.drawable.main_sdhanbit_icon;
+            	break;
+            case 1:
+            	res = R.drawable.main_pastor_icon;
+            	break;
+            case 2:
+            	res = R.drawable.main_staff_icon;
+            	break;
+            case 3:
+            	res = R.drawable.main_map_icon;
+            	break;
+            case 4:
+            	res = R.drawable.main_worship_icon;
+            	break;
+            case 5:
+            	res = R.drawable.main_sermon_icon;
+            	break;
+            case 6:
+            	res = R.drawable.main_share_icon;
+            	break;
+            case 7:
+            	res = R.drawable.main_recitation_icon;
+            	break;
+            case 8:
+            	res = R.drawable.main_ministry_icon;
+            	break;
+            case 9:
+            	res = R.drawable.main_words_icon;
+            	break;
+            case 10:
+            	res = R.drawable.main_news_icon;
+            	break;
+            case 11:
+            	res = R.drawable.main_actions_icon;
+            	break;
+            case 12:
+            	res = R.drawable.main_sdhanbit_icon;
+            	break;
+            default:
+            	res = R.drawable.main_sdhanbit_icon;
+            }
+            imgIcon.setImageResource(res);     
+            txtTitle.setText(mMenuTitles[position]);     
+            return convertView;
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,8 +220,7 @@ public class MainActivity extends RoboActivity {
 //      mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
       // set up the drawer's list view with items and click listener
-      mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-              R.layout.drawer_list_item, mMenuTitles));
+      mDrawerList.setAdapter(new CustomAdapter(this));
       mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
       mDrawerList.setBackground(getResources().getDrawable(R.drawable.drawerbackground));
       mDrawerList.setDividerHeight(0);
@@ -272,7 +353,9 @@ public class MainActivity extends RoboActivity {
     public static class PlanetFragment extends Fragment {
         public static final String ARG_MENU_NUMBER = "menu_number";
 
-        public static int tmap[] = {3,11,12,13,8,7,5,6,9}; //by jin
+        public static int tmap[] = {3,/*map*/  10, /* news */  11, /*Actions*/
+        						    12, /*School*/ 8, /*Ministry*/ 7, /*Recitation*/
+        						    5,/*Sermon*/ 6, /*Share*/ 9/*words*/}; //by jin
 
         public PlanetFragment() {
             // Empty constructor required for fragment subclasses
@@ -373,25 +456,19 @@ public class MainActivity extends RoboActivity {
                     new Words(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 10: //Hopes
-                    rootView = inflater.inflate(R.layout.hopes, container, false);
-                    menu = getResources().getStringArray(R.array.menu_array)[i];
-                    new Hopes(mContext, feedEntryManager, rootView).construct();
-                    getActivity().setTitle(menu);
-                    break;
-            case 11:  // News
+            case 10:  // News
                     rootView = inflater.inflate(R.layout.news, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new News(mContext, feedEntryManager, rootView).constructNews();
                     getActivity().setTitle(menu);
                     break;
-            case 12: //Actions
+            case 11: //Actions
                     rootView = inflater.inflate(R.layout.actions, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Actions(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 13: //School
+            case 12: //School
                     rootView = inflater.inflate(R.layout.school, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new School(mContext, feedEntryManager, rootView).construct();
@@ -474,8 +551,6 @@ class GridViewContent extends BaseAdapter {
         int width = arg2.getWidth();
         int height = arg2.getBottom();
         imageView.setLayoutParams(new GridView.LayoutParams(width/3-1, height/3-1));
-
-        Log.i("FrontPage", "getView width, height (" + width + ", " + height + ")");
 
         return imageView;
     }
