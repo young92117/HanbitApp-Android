@@ -222,8 +222,9 @@ public class MainActivity extends RoboActivity {
       // set up the drawer's list view with items and click listener
       mDrawerList.setAdapter(new CustomAdapter(this));
       mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-      mDrawerList.setBackground(getResources().getDrawable(R.drawable.drawerbackground));
-      mDrawerList.setDividerHeight(0);
+
+      //mDrawerList.setBackground(getResources().getDrawable(R.drawable.drawerbackground));
+      mDrawerList.setDividerHeight(1);
 
       // enable ActionBar app icon to behave as action to toggle nav drawer
       getActionBar().setDisplayHomeAsUpEnabled(true);
