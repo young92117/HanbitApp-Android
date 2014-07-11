@@ -389,6 +389,10 @@ public class MainActivity extends RoboActivity {
                     getActivity().setTitle(menu);
                     break;
             case 2: //people
+                    //rootView = inflater.inflate(R.layout.people, container, false);
+                    //menu = getResources().getStringArray(R.array.menu_array)[i];
+                    //new People(mContext, feedEntryManager, rootView).construct();
+                    //getActivity().setTitle(menu);
                     rootView = inflater.inflate(R.layout.people, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new People(mContext, feedEntryManager, rootView).construct();
