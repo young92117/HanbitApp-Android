@@ -3,8 +3,7 @@
           android:versionCode="2"
           android:versionName="1.0.0-SNAPSHOT"
           package="org.sdhanbit.mobile.android">
-
-    <uses-sdk android:minSdkVersion="16"
+	<uses-sdk android:minSdkVersion="16"
               android:targetSdkVersion="19"/>
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,8 +13,7 @@
                  android:icon="@drawable/icon_hanbit_1"
                  android:label="@string/app_name"
                  android:allowBackup="true">
-
-
+		<uses-library android:name="com.google.android.maps"/>
         <activity
                 android:name=".activities.SplashActivity"
                 android:label="@string/app_name"
@@ -34,7 +32,11 @@
                     android:label="@string/app_name" >
         </activity>
 
-
+		<activity   android:name=".activities.Map"
+                    android:screenOrientation="portrait"
+                    android:label="@string/app_name" >
+        </activity>
+        
         <activity
                 android:name=".activities.Recitation"
                 android:label="@string/app_name"

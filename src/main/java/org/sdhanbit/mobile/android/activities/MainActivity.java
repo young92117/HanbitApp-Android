@@ -400,10 +400,20 @@ public class MainActivity extends RoboActivity {
                     getActivity().setTitle(menu);
                     break;
             case 3: //map
-                    rootView = inflater.inflate(R.layout.map, container, false);
-                    menu = getResources().getStringArray(R.array.menu_array)[i];
-                    new Map(mContext, feedEntryManager, rootView).construct();
-                    getActivity().setTitle(menu);
+            		{
+		            	Intent mapI = new Intent();
+		                mapI.setClass(mContext, Map.class);
+		                startActivity(mapI);
+		                
+		                isFrontMenu = true;
+		            	rootView = inflater.inflate(R.layout.front_page, container, false);
+		                GridView grid = (GridView)(rootView.findViewById(R.id.main_grid));
+		                grid.setAdapter(new GridViewContent(mContext));
+		                grid.setOnItemClickListener(gridItemClickListener);
+
+		            	menu = getResources().getStringArray(R.array.menu_array)[0];
+			            getActivity().setTitle(menu);
+            		}
                     break;
             case 4: //worship
                     rootView = inflater.inflate(R.layout.worship, container, false);

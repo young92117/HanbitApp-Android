@@ -1,34 +1,21 @@
-<LinearLayout
+<RelativeLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
-    <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-        <LinearLayout  android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:orientation="vertical">
-            <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageView" android:src="@drawable/map_google" android:cropToPadding="false"
-                    android:scaleType="fitStart" android:adjustViewBounds="true" android:clickable="true"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#000000"
-                        android:text="San Diego Hanbit Church\n4717 Cardin St.\nSan Diego, CA 92111"
-                        android:id="@+id/textView2" android:clickable="true"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/compass_imageview" android:src="@drawable/compass" android:cropToPadding="false"
-                    android:scaleType="fitStart" android:adjustViewBounds="true" android:clickable="true"/>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    <com.google.android.maps.MapView 
+        android:id="@+id/mapView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:enabled="true"
+        android:clickable="true"
+        android:apiKey="Change to our offical api key"
+    />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:background="@drawable/compass"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true">
+    </ImageView>
+</RelativeLayout>

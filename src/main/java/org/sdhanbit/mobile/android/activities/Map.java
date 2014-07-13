@@ -2,7 +2,9 @@ package org.sdhanbit.mobile.android.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,25 +14,37 @@ import android.widget.Toast;
 import org.sdhanbit.mobile.android.R;
 import org.sdhanbit.mobile.android.managers.FeedEntryManager;
 
-public class Map {
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+
+public class Map extends MapActivity{
 
 	private static String TAG = "Map";
 	private Context mContext;
 	private FeedEntryManager feedEntryManager;
 	private View mainView;
 
-	public Map(Context context, FeedEntryManager feedEntryManager, View mainView)
-	{
-		mContext = context;
-		this.feedEntryManager = feedEntryManager;
-		this.mainView = mainView;
-	}
-	
-	public void construct()
-    {
-    	Log.v(TAG, "Starting Map");
-    	ImageView map_iv = (ImageView)(mainView.findViewById(R.id.compass_imageview));
-    	map_iv.setOnClickListener(new View.OnClickListener() {
+	@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mContext = this;
+        
+        setContentView(R.layout.map);
+        
+        MapView mapView = (MapView)findViewById(R.id.mapView);
+		mapView.setBuiltInZoomControls(false);
+		mapView.setClickable(true);
+		mapView.setLongClickable(true);
+		mapView.setTraffic(true);
+		MapController mc = mapView.getController();
+		GeoPoint p = new GeoPoint((int) (32.827608 * 1E6), (int) (-117.162542 * 1E6));
+		mc.animateTo(p);
+		mc.setZoom(19);
+		
+		ImageView imgView = (ImageView)findViewById(R.id.imageView);
+    	imgView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(Intent.CATEGORY_BROWSABLE);
@@ -44,8 +58,14 @@ public class Map {
 								+ "-117.162542"
 								+ "&saddr=");
 				i.setData(uri);
-				mContext.startActivity(Intent.createChooser(i,"Please choose map application"));
+				startActivity(Intent.createChooser(i,"Please choose map application"));
 			}
 		});
-    }
+	}
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
