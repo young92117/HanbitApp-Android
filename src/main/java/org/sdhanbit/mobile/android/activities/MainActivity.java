@@ -425,16 +425,23 @@ public class MainActivity extends RoboActivity {
                     break;
             case 7: //Recitation
                     {
-		                PackageManager pm = mContext.getPackageManager();
-		                Intent intent = pm.getLaunchIntentForPackage("org.sdhanbit.android");
-		                intent.addCategory(Intent.CATEGORY_LAUNCHER);
-		                if (intent != null)
-		                  mContext.startActivity(intent);
-		                else
-		                {
-		                  intent.setData(Uri.parse("market://details?id=+org.sdhanbit.android"));
-		                  mContext.startActivity(intent);
-		                }
+                    	PackageManager pm = mContext.getPackageManager();
+                        Intent intent = pm.getLaunchIntentForPackage("org.sdhanbit.android");
+                        if (intent != null)
+                        {
+                         	intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                         	mContext.startActivity(intent);
+                        }
+                        else
+                        {
+                         	String appPackageName = "org.sdhanbit.android";
+                         	try {
+                         	    mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                         	} catch (android.content.ActivityNotFoundException anfe) {
+                         	    mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appPackageName)));
+                         	}
+                        }
+                        
 		                isFrontMenu = true;
 		            	rootView = inflater.inflate(R.layout.front_page, container, false);
 		                GridView grid = (GridView)(rootView.findViewById(R.id.main_grid));
