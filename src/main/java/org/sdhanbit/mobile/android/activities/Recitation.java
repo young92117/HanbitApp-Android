@@ -42,39 +42,9 @@ public class Recitation extends Activity {
 	
 	public void construct()
     {
+		
+		//Right now, it doesn't reach here.
     	Log.v(TAG, "Starting Recitation");
-
-        //Uri BA = Uri.parse("org.sdhanbit.android");
-        //Intent intent = new Intent(Intent.ACTION_VIEW,BA);
-        //Intent intent = new Intent("org.sdhanbit.android");
-
-        //Intent intent = new Intent(Intent.ACTION_MAIN);
-        //intent.setClassName("org.sdhanbit.android","org.sdhanbit.android.ActivityToStart");
-        //startActivity(intent);
-
-        pm = mContext.getPackageManager();
-        Intent intent = pm.getLaunchIntentForPackage("org.sdhanbit.android");
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //startActivity(intent);
-
-        ///*
-        if (intent != null)
-        {
-          // Activity was found, launch new app
-          //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-          mContext.startActivity(intent);
-        }
-        else
-        {
-          // Activity not found. Send user to market
-          //intent = new Intent(Intent.ACTION_VIEW);
-          //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-          intent.setData(Uri.parse("market://details?id=+org.sdhanbit.android"));
-          mContext.startActivity(intent);
-        }
-        //*/
-
     }
 
 
