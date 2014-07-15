@@ -1,11 +1,15 @@
 package org.sdhanbit.mobile.android.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
@@ -13,7 +17,7 @@ import com.google.android.maps.MapView;
 import org.sdhanbit.mobile.android.R;
 import org.sdhanbit.mobile.android.managers.FeedEntryManager;
 
-public class Map extends MapActivity{
+public class Map extends Activity {
 
 	private static String TAG = "Map";
 	private Context mContext;
@@ -26,6 +30,22 @@ public class Map extends MapActivity{
         mContext = this;
         
         setContentView(R.layout.map);
+
+        GoogleMap mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+        mMap.setTrafficEnabled(true);
+        UiSettings settings = mMap.getUiSettings();
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(
+                new CameraPosition(new LatLng(32.827608, -117.162542),
+                        18f, 30f, 112.5f))); // zoom, tilt, bearing
+        mMap.setTrafficEnabled(true);
+        settings.setAllGesturesEnabled(true);
+        settings.setCompassEnabled(true);
+        settings.setMyLocationButtonEnabled(true);
+        settings.setRotateGesturesEnabled(true);
+        settings.setScrollGesturesEnabled(true);
+        settings.setTiltGesturesEnabled(true);
+        settings.setZoomControlsEnabled(true);
+        settings.setZoomGesturesEnabled(true);
 
 		ImageView imgView = (ImageView)findViewById(R.id.imageView);
     	imgView.setOnClickListener(new View.OnClickListener() {
@@ -47,9 +67,4 @@ public class Map extends MapActivity{
 		});
 	}
 
-	@Override
-	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }
