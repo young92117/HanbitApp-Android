@@ -26,17 +26,7 @@ public class Map extends MapActivity{
         mContext = this;
         
         setContentView(R.layout.map);
-        
-        MapView mapView = (MapView)findViewById(R.id.mapView);
-		mapView.setBuiltInZoomControls(false);
-		mapView.setClickable(true);
-		mapView.setLongClickable(true);
-		mapView.setTraffic(true);
-		MapController mc = mapView.getController();
-		GeoPoint p = new GeoPoint((int) (32.827608 * 1E6), (int) (-117.162542 * 1E6));
-		mc.animateTo(p);
-		mc.setZoom(19);
-		
+
 		ImageView imgView = (ImageView)findViewById(R.id.imageView);
     	imgView.setOnClickListener(new View.OnClickListener() {
 			@Override
