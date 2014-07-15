@@ -2,22 +2,16 @@ package org.sdhanbit.mobile.android.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import org.sdhanbit.mobile.android.R;
-import org.sdhanbit.mobile.android.managers.FeedEntryManager;
-
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import org.sdhanbit.mobile.android.R;
+import org.sdhanbit.mobile.android.managers.FeedEntryManager;
 
 public class Map extends MapActivity{
 

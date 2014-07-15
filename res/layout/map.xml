@@ -8,7 +8,7 @@
         android:layout_height="fill_parent"
         android:enabled="true"
         android:clickable="true"
-        android:apiKey="Change to our offical api key"
+        android:apiKey="AIzaSyBYLtTBu0ASQNTfMxOPtDzH5enjF2P4xT4"
     />
     <ImageView
         android:layout_width="wrap_content"
