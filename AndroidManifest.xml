@@ -5,8 +5,6 @@
           package="org.sdhanbit.mobile.android">
 	<uses-sdk android:minSdkVersion="16"
               android:targetSdkVersion="19"/>
-    <uses-feature        android:glEsVersion="0x00020000"
-                         android:required="true"/>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
@@ -15,11 +13,15 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
+    <uses-feature        android:glEsVersion="0x00020000"
+                         android:required="true"/>
+
     <application android:name=".MainApplication"
                  android:icon="@drawable/icon_hanbit_1"
                  android:label="@string/app_name"
                  android:allowBackup="true">
 		<uses-library android:name="com.google.android.maps"/>
+
         <activity
                 android:name=".activities.SplashActivity"
                 android:label="@string/app_name"
@@ -30,8 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
 
         <activity   android:name=".activities.MainActivity"
                     android:screenOrientation="portrait"
@@ -72,8 +72,8 @@
         </receiver>
 
 
-        <meta-data    android:name="com.google.android.maps.v2.AIzaSyBYLtTBu0ASQNTfMxOPtDzH5enjF2P4xT4"
-                      android:value="AIzaSyBYLtTBu0ASQNTfMxOPtDzH5enjF2P4xT4"/>
+        <meta-data    android:name="com.google.android.maps.v2.AIzaSyAc0VP3L0_Bn2Vsx_ZFdG8PlrCFFJManAo"
+                      android:value="AIzaSyAc0VP3L0_Bn2Vsx_ZFdG8PlrCFFJManAo"/>
     </application>
 
 

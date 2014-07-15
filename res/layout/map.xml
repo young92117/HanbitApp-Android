@@ -8,8 +8,9 @@
         android:layout_height="fill_parent"
         android:enabled="true"
         android:clickable="true"
-        android:apiKey="AIzaSyBYLtTBu0ASQNTfMxOPtDzH5enjF2P4xT4"
+        android:apiKey="AIzaSyAc0VP3L0_Bn2Vsx_ZFdG8PlrCFFJManAo"
     />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
