@@ -325,7 +325,7 @@ public class MainActivity extends RoboActivity {
     public static class PlanetFragment extends Fragment {
         public static final String ARG_MENU_NUMBER = "menu_number";
 
-        public static int tmap[] = {4,/*map*/  11, /* news */  12, /*Actions*/
+        public static int tmap[] = {1,/*church*/  11, /* news */  12, /*Actions*/
         						    13, /*School*/ 9, /*Ministry*/ 8, /*Recitation*/
         						    6,/*Sermon*/ 7, /*Share*/ 10/*words*/}; //by jin
 
