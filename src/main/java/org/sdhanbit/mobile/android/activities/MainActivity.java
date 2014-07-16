@@ -1,18 +1,8 @@
 package org.sdhanbit.mobile.android.activities;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,45 +12,23 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.webkit.WebView;
-import android.widget.AdapterView;
+import android.view.*;
+import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TableLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.inject.Inject;
-
 import org.sdhanbit.mobile.android.R;
-import org.sdhanbit.mobile.android.controllers.MainActivityController;
-import org.sdhanbit.mobile.android.entities.FeedEntry;
 import org.sdhanbit.mobile.android.managers.FeedEntryManager;
 import org.sdhanbit.mobile.android.schedulers.JsonReaderScheduler;
-import org.sdhanbit.mobile.android.schedulers.RssReaderScheduler;
-
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class MainActivity extends RoboActivity {
 
@@ -154,42 +122,45 @@ public class MainActivity extends RoboActivity {
             switch(position)
             {
             case 0:
-            	res = R.drawable.main_sdhanbit_icon;
+            	res = R.drawable.cross_32x32;
             	break;
             case 1:
+                res = R.drawable.main_sdhanbit_icon;
+                   break;
+            case 2:
             	res = R.drawable.main_pastor_icon;
             	break;
-            case 2:
+            case 3:
             	res = R.drawable.main_staff_icon;
             	break;
-            case 3:
+            case 4:
             	res = R.drawable.main_map_icon;
             	break;
-            case 4:
+            case 5:
             	res = R.drawable.main_worship_icon;
             	break;
-            case 5:
+            case 6:
             	res = R.drawable.main_sermon_icon;
             	break;
-            case 6:
+            case 7:
             	res = R.drawable.main_share_icon;
             	break;
-            case 7:
+            case 8:
             	res = R.drawable.main_recitation_icon;
             	break;
-            case 8:
+            case 9:
             	res = R.drawable.main_ministry_icon;
             	break;
-            case 9:
+            case 10:
             	res = R.drawable.main_words_icon;
             	break;
-            case 10:
+            case 11:
             	res = R.drawable.main_news_icon;
             	break;
-            case 11:
+            case 12:
             	res = R.drawable.main_actions_icon;
             	break;
-            case 12:
+            case 13:
             	res = R.drawable.main_sdhanbit_icon;
             	break;
             default:
@@ -354,9 +325,9 @@ public class MainActivity extends RoboActivity {
     public static class PlanetFragment extends Fragment {
         public static final String ARG_MENU_NUMBER = "menu_number";
 
-        public static int tmap[] = {3,/*map*/  10, /* news */  11, /*Actions*/
-        						    12, /*School*/ 8, /*Ministry*/ 7, /*Recitation*/
-        						    5,/*Sermon*/ 6, /*Share*/ 9/*words*/}; //by jin
+        public static int tmap[] = {1,/*church*/  11, /* news */  12, /*Actions*/
+        						    13, /*School*/ 9, /*Ministry*/ 8, /*Recitation*/
+        						    6,/*Sermon*/ 7, /*Share*/ 10/*words*/}; //by jin
 
         public PlanetFragment() {
             // Empty constructor required for fragment subclasses
@@ -383,13 +354,19 @@ public class MainActivity extends RoboActivity {
             	menu = getResources().getStringArray(R.array.menu_array)[i];
 	            getActivity().setTitle(menu);
 	            break;
-            case 1: //pastor
+            case 1: //overview
+                    rootView = inflater.inflate(R.layout.overview, container, false);
+                    menu = getResources().getStringArray(R.array.menu_array)[i];
+                    new Pastor(mContext, feedEntryManager, rootView).construct();
+                    getActivity().setTitle(menu);
+                    break;
+            case 2: //pastor
                     rootView = inflater.inflate(R.layout.pastor, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Pastor(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 2: //people
+            case 3: //people
                     //rootView = inflater.inflate(R.layout.people, container, false);
                     //menu = getResources().getStringArray(R.array.menu_array)[i];
                     //new People(mContext, feedEntryManager, rootView).construct();
@@ -399,7 +376,7 @@ public class MainActivity extends RoboActivity {
                     new People(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 3: //map
+            case 4: //map
             		{
 		            	Intent mapI = new Intent();
 		                mapI.setClass(mContext, Map.class);
@@ -415,25 +392,25 @@ public class MainActivity extends RoboActivity {
 			            getActivity().setTitle(menu);
             		}
                     break;
-            case 4: //worship
+            case 5: //worship
                     rootView = inflater.inflate(R.layout.worship, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Worship(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 5: //Sermon
+            case 6: //Sermon
                     rootView = inflater.inflate(R.layout.sermon, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Sermon(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 6: //Share
+            case 7: //Share
                     rootView = inflater.inflate(R.layout.share, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Share(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 7: //Recitation
+            case 8: //Recitation
                     {
                     	PackageManager pm = mContext.getPackageManager();
                         Intent intent = pm.getLaunchIntentForPackage("org.sdhanbit.android");
@@ -466,31 +443,31 @@ public class MainActivity extends RoboActivity {
 //                    new Recitation(mContext, feedEntryManager, rootView).construct();
 //                    getActivity().setTitle(menu);
                     break;
-            case 8: //Ministry
+            case 9: //Ministry
                     rootView = inflater.inflate(R.layout.ministry, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Ministry(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 9: //Words
+            case 10: //Words
                     rootView = inflater.inflate(R.layout.words, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Words(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 10:  // News
+            case 11:  // News
                     rootView = inflater.inflate(R.layout.news, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new News(mContext, feedEntryManager, rootView).constructNews();
                     getActivity().setTitle(menu);
                     break;
-            case 11: //Actions
+            case 12: //Actions
                     rootView = inflater.inflate(R.layout.actions, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new Actions(mContext, feedEntryManager, rootView).construct();
                     getActivity().setTitle(menu);
                     break;
-            case 12: //School
+            case 13: //School
                     rootView = inflater.inflate(R.layout.school, container, false);
                     menu = getResources().getStringArray(R.array.menu_array)[i];
                     new School(mContext, feedEntryManager, rootView).construct();
