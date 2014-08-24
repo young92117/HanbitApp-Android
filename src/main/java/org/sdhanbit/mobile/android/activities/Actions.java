@@ -38,6 +38,7 @@ public class Actions {//} extends Activity {
     {
     	Log.v(TAG, "Starting Actions");
         WebView browser = (WebView) (mainView.findViewById(R.id.WebViewAct));
+        browser.getSettings().setBuiltInZoomControls(true);
         browser.loadUrl("https://docs.google.com/spreadsheet/pub?key=0Ahw6lNCJGfZ6dDNJcm9IT0lqVWVZNU5Zc3B0ZklfSGc&output=html");
     }
 

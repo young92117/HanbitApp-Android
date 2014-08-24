@@ -21,21 +21,31 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        final VideoView videoView = (VideoView) findViewById(R.id.splash_video_view);
-        String videoName = "splash_video";
-        int id = getResources().getIdentifier(videoName, "raw", "org.sdhanbit.mobile.android");
-        final String path = "android.resource://" + "org.sdhanbit.mobile.android/" + id;
-        videoView.setVideoURI(Uri.parse(path));
-        videoView.start();
+        if(Integer.valueOf(android.os.Build.VERSION.SDK_INT) < 11)
+        {
+            Intent i = new Intent(SplashActivity.this, MainActivity.class);
+            startActivity(i);
+            // close this activity
+            finish();
+        }
+        else
+        {
+            final VideoView videoView = (VideoView) findViewById(R.id.splash_video_view);
+            String videoName = "splash_video";
+            int id = getResources().getIdentifier(videoName, "raw", "org.sdhanbit.mobile.android");
+            final String path = "android.resource://" + "org.sdhanbit.mobile.android/" + id;
+            videoView.setVideoURI(Uri.parse(path));
+            videoView.start();
 
-        new Handler().postDelayed(new Runnable() {
+            new Handler().postDelayed(new Runnable() {
 
-            @Override
-            public void run() {
-                // This method will be executed once the timer is over
-                closeSplash();
-            }
+                @Override
+                public void run() {
+                    // This method will be executed once the timer is over
+                    closeSplash();
+                    }
         }, SPLASH_TIME_OUT);
+        }
     }
 
     private void closeSplash() {

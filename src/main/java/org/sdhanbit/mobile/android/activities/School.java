@@ -27,6 +27,7 @@ public class School {
     {
         Log.v(TAG, "Starting School");
         WebView browser = (WebView) (mainView.findViewById(R.id.WebViewSchool));
+        browser.getSettings().setBuiltInZoomControls(true);
         browser.loadUrl("http://www.sdhanbit.org/wordpress/mobile/culture_school.html");
     }
 }
