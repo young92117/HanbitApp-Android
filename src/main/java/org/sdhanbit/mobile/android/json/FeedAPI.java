@@ -1,14 +1,14 @@
 package org.sdhanbit.mobile.android.json;
 
+import android.os.Bundle;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-import android.os.Bundle;
-
 public class FeedAPI {
 
-	public static String BASE_URL = "http://www.sdhanbit.org/wordpress/wp_api/";
+	public static String BASE_URL = "http://www.sdhanbit.org/wordpress/index.php/wp_api/";
 	
     protected static String SERMON_GET_PATH = BASE_URL+"v1/posts";
     

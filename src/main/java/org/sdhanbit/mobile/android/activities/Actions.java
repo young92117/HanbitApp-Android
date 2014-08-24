@@ -1,21 +1,11 @@
 package org.sdhanbit.mobile.android.activities;
 
-import java.util.List;
-
-import org.sdhanbit.mobile.android.R;
-import org.sdhanbit.mobile.android.entities.FeedEntry;
-import org.sdhanbit.mobile.android.managers.FeedEntryManager;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
-import android.app.Activity;
-import android.os.Bundle;
 import android.webkit.WebView;
-
-import com.haarman.listviewanimations.swinginadapters.prepared.AlphaInAnimationAdapter;
-import roboguice.activity.event.OnCreateEvent;
+import org.sdhanbit.mobile.android.R;
+import org.sdhanbit.mobile.android.managers.FeedEntryManager;
 
 public class Actions {//} extends Activity {
 
@@ -38,6 +28,7 @@ public class Actions {//} extends Activity {
     {
     	Log.v(TAG, "Starting Actions");
         WebView browser = (WebView) (mainView.findViewById(R.id.WebViewAct));
+        browser.getSettings().setBuiltInZoomControls(true);
         browser.loadUrl("https://docs.google.com/spreadsheet/pub?key=0Ahw6lNCJGfZ6dDNJcm9IT0lqVWVZNU5Zc3B0ZklfSGc&output=html");
     }
 
